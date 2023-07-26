@@ -11,6 +11,8 @@ class Tag extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'category_id'];
+
     public function categories(): BelongsTo
     {
         return $this->belongsTo(Category::class);

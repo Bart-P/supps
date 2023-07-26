@@ -10,6 +10,19 @@ class Person extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'supplier_id',
+        'type',
+        'gender',
+        'first_name',
+        'last_name',
+        'position',
+        'phone1',
+        'phone2',
+        'email1',
+        'email2',
+    ];
+
     public function suppliers(): BelongsTo
     {
         return $this->belongsTo(Supplier::class);

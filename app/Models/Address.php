@@ -10,6 +10,20 @@ class Address extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'supplier_id',
+        'type',
+        'name1',
+        'name2',
+        'name3',
+        'street',
+        'street_nr',
+        'city_code',
+        'city',
+        'country',
+        'phone',
+    ];
+
     public function suppliers(): BelongsTo
     {
         return $this->belongsTo(Supplier::class);

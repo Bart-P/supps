@@ -11,6 +11,8 @@ class Category extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'color'];
+
     public function tags(): HasMany
     {
         return $this->hasMany(Tag::class);
