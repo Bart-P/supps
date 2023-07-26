@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Tag extends Model
 {
@@ -18,8 +18,8 @@ class Tag extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function suppliers(): BelongsToMany
+    public function suppliers(): HasMany
     {
-        return $this->belongsToMany(Supplier::class);
+        return $this->hasMany(Supplier::class);
     }
 }
