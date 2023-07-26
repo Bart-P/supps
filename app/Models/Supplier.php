@@ -33,8 +33,8 @@ class Supplier extends Model
         return $this->belongsToMany(Category::class);
     }
 
-    public function tags(): BelongsToMany
+    public function tags(): HasMany
     {
-        return $this->belongsToMany(Category::class);
+        return $this->hasMany(Tag::class);
     }
 }
