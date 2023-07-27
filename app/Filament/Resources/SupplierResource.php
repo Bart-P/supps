@@ -28,8 +28,8 @@ class SupplierResource extends Resource
             ->schema([
                 Card::make()
                     ->schema([
-                        TextInput::make('name'),
-                        TextInput::make('email')->email(),
+                        TextInput::make('name')->required(),
+                        TextInput::make('email')->email()->required(),
                         TextInput::make('web')->url()
                     ])
             ]);
@@ -39,6 +39,9 @@ class SupplierResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make('id')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('name')
                     ->sortable()
                     ->searchable(),
@@ -48,6 +51,9 @@ class SupplierResource extends Resource
                 TextColumn::make('web')
                     ->sortable()
                     ->searchable(),
+                TextColumn::make('created_at')
+                    ->dateTime('d.m.Y G:i', 'Europe/Berlin')
+                    ->sortable(),
             ])
             ->filters([
                 //
