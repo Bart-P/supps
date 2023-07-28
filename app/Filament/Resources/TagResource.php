@@ -4,9 +4,11 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\TagResource\Pages;
 use App\Filament\Resources\TagResource\RelationManagers;
+use App\Models\Category;
 use App\Models\Tag;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -28,8 +30,11 @@ class TagResource extends Resource
             ->schema([
                 Card::make()
                     ->schema([
+                        Select::make('category_id')
+                            ->options(Category::all()->pluck('name', 'id'))
+                            ->searchable()
+                            ->required(),
                         TextInput::make('name')->required(),
-                        TextInput::make('category_id')->required()
                     ])
             ]);
     }
