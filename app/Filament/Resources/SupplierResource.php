@@ -4,15 +4,18 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\SupplierResource\Pages;
 use App\Filament\Resources\SupplierResource\RelationManagers;
+use App\Models\Category;
 use App\Models\Supplier;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -28,6 +31,10 @@ class SupplierResource extends Resource
             ->schema([
                 Card::make()
                     ->schema([
+                        Select::make('category')
+                            ->multiple()
+                            ->relationship('categories', 'name')
+                            ->preload(),
                         TextInput::make('name')->required(),
                         TextInput::make('email')->email()->required(),
                         TextInput::make('web')->url()
@@ -56,7 +63,8 @@ class SupplierResource extends Resource
                     ->sortable(),
             ])
             ->filters([
-                //
+                SelectFilter::make('category')
+                    ->relationship('categories', 'name'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -69,7 +77,7 @@ class SupplierResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\CategoriesRelationManager::class,
         ];
     }
 
