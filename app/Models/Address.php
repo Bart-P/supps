@@ -24,7 +24,7 @@ class Address extends Model
         'phone',
     ];
 
-    public function supplier(): BelongsTo
+    public function suppliers(): BelongsTo
     {
         return $this->belongsTo(Supplier::class);
     }
