@@ -30,7 +30,7 @@ class Supplier extends Model
 
     public function categories(): BelongsToMany
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class)->withPivot('category_id');
     }
 
     public function tags(): HasMany

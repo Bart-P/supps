@@ -20,6 +20,6 @@ class Category extends Model
 
     function suppliers(): BelongsToMany
     {
-        return $this->belongsToMany(Supplier::class);
+        return $this->belongsToMany(Supplier::class)->withPivot('supplier_id');
     }
 }
