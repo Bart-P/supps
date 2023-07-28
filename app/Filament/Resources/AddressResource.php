@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\AddressResource\Pages;
 use App\Filament\Resources\AddressResource\RelationManagers;
 use App\Models\Address;
+use App\Models\Supplier;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Select;
@@ -28,6 +29,11 @@ class AddressResource extends Resource
         return $form
             ->schema([
                 Card::make()->schema([
+                    Select::make('supplier_id')
+                        ->label('Supplier')
+                        ->options(Supplier::all()->pluck('name', 'id'))
+                        ->searchable()
+                        ->required(),
                     Select::make('type')
                         ->options(['Invoice', 'Delivery', 'Other'])
                         ->required(),
@@ -53,15 +59,18 @@ class AddressResource extends Resource
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('supplier_id')
+                    ->label('Supp. ID')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('name1')
+                    ->label('Name')
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('street')
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('street_nr')
+                    ->label('Nr.')
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('city_code')
