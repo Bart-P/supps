@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\PersonResource\Pages;
 use App\Filament\Resources\PersonResource\RelationManagers;
 use App\Models\Person;
+use App\Models\Supplier;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Select;
@@ -28,11 +29,15 @@ class PersonResource extends Resource
         return $form
             ->schema([
                 Card::make()->schema([
+                    Select::make('supplier_id')
+                        ->options(Supplier::all()->pluck('name', 'id'))
+                        ->searchable()
+                        ->required(),
                     Select::make('type')
-                        ->options(['Main', 'Backup', 'Other'])
+                        ->options(['main' => 'Main', 'backup' => 'Backup', 'other' => 'Other'])
                         ->required(),
                     Select::make('gender')
-                        ->options(['Male', 'Female', 'Other'])
+                        ->options(['m' => 'Male', 'f' => 'Female', 'o' => 'Other'])
                         ->required(),
                     TextInput::make('first_name')
                         ->required(),
