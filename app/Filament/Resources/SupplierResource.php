@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\SupplierResource\Pages;
 use App\Filament\Resources\SupplierResource\RelationManagers;
 use App\Models\Supplier;
+use App\Models\Tag;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Select;
@@ -30,13 +31,19 @@ class SupplierResource extends Resource
             ->schema([
                 Card::make()
                     ->schema([
+                        TextInput::make('name')->required(),
+                        TextInput::make('email')->email()->required(),
+                        TextInput::make('web')->url(),
                         Select::make('category')
                             ->multiple()
                             ->relationship('categories', 'name')
                             ->preload(),
-                        TextInput::make('name')->required(),
-                        TextInput::make('email')->email()->required(),
-                        TextInput::make('web')->url()
+                        // TODO -> show only tags that are available an chosen categories (dependant select field)
+                        Select::make('tags')
+                            ->options(Tag::all()->pluck('name', 'id'))
+                            ->multiple()
+                            ->preload(),
+
                     ])
             ]);
     }
