@@ -33,8 +33,8 @@ class Supplier extends Model
         return $this->belongsToMany(Category::class)->withPivot('category_id');
     }
 
-    public function tags(): HasMany
+    public function tags(): BelongsToMany
     {
-        return $this->hasMany(Tag::class);
+        return $this->belongsToMany(Tag::class);
     }
 }
