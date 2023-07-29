@@ -4,10 +4,13 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\SupplierResource\Pages;
 use App\Filament\Resources\SupplierResource\RelationManagers;
+use App\Models\Category;
 use App\Models\Supplier;
 use App\Models\Tag;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
@@ -34,16 +37,24 @@ class SupplierResource extends Resource
                         TextInput::make('name')->required(),
                         TextInput::make('email')->email()->required(),
                         TextInput::make('web')->url(),
-                        Select::make('category')
-                            ->multiple()
+                        // TODO revamp Tags, remove relationship between tags an categories
+                        // TODO add new Model + Select field or CheckboxList + edit page for Print (Offset, Digital, Tampondruck, Latex, etc.)
+                        CheckboxList::make('category')
                             ->relationship('categories', 'name')
-                            ->preload(),
-                        // TODO -> show only tags that are available an chosen categories (dependant select field)
-                        Select::make('tags')
-                            ->options(Tag::all()->pluck('name', 'id'))
-                            ->multiple()
-                            ->preload(),
-
+                            ->columns(4)
+                            ->required(),
+                        Select::make('tag')
+                            ->relationship('tags', 'name')
+                            ->options(function (callable $get) {
+                                $categories = Category::find($get('category'))->pluck('id');
+                                if ($categories) {
+                                    $tags = Tag::all()
+                                        ->whereIn('category_id', $categories)
+                                        ->pluck('name', 'id');
+                                    return $tags;
+                                }
+                            })
+                            ->multiple(),
                     ])
             ]);
     }
@@ -71,6 +82,8 @@ class SupplierResource extends Resource
             ->filters([
                 SelectFilter::make('category')
                     ->relationship('categories', 'name'),
+                SelectFilter::make('tag')
+                    ->relationship('tags', 'name'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
