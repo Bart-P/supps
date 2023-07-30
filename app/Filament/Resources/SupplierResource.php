@@ -9,7 +9,6 @@ use App\Models\Supplier;
 use App\Models\Tag;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
-use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
