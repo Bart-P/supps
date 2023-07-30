@@ -36,8 +36,6 @@ class SupplierResource extends Resource
                         TextInput::make('name')->required(),
                         TextInput::make('email')->email()->required(),
                         TextInput::make('web')->url(),
-                        // TODO revamp Tags, remove relationship between tags an categories
-                        // TODO add new Model + Select field or CheckboxList + edit page for Print (Offset, Digital, Tampondruck, Latex, etc.)
                         CheckboxList::make('category')
                             ->relationship('categories', 'name')
                             ->columns(4)
