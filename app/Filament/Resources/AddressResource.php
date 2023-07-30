@@ -35,7 +35,7 @@ class AddressResource extends Resource
                         ->searchable()
                         ->required(),
                     Select::make('type')
-                        ->options(['Invoice', 'Delivery', 'Other'])
+                        ->options(['invoice' => 'Invoice', 'delivery' => 'Delivery', 'main' => 'Main', 'other' => 'Other'])
                         ->required(),
                     TextInput::make('name1')->required(),
                     TextInput::make('name2'),
