@@ -10,12 +10,7 @@ class Tag extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'category_id'];
-
-    public function categories(): BelongsToMany
-    {
-        return $this->belongsToMany(Category::class)->withPivot('category_id');
-    }
+    protected $fillable = ['name'];
 
     public function suppliers(): BelongsToMany
     {
