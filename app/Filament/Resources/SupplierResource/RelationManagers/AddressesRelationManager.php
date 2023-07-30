@@ -30,7 +30,7 @@ class AddressesRelationManager extends RelationManager
         return $form
             ->schema([
                 Select::make('type')
-                    ->options(['invoice' => 'invoice', 'delivery' => 'delivery', 'main' => 'main', 'other' => 'other'])
+                    ->options(['invoice' => 'Invoice', 'delivery' => 'Delivery', 'main' => 'Main', 'other' => 'Other'])
                     ->required(),
                 TextInput::make('name1')->required(),
                 TextInput::make('name2'),
