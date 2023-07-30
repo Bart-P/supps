@@ -6,7 +6,6 @@ use App\Filament\Resources\CategoryResource\Pages;
 use App\Models\Category;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
-use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -29,10 +28,8 @@ class CategoryResource extends Resource
             ->schema([
                 Card::make()
                     ->schema([
-                        TextInput::make('name')->label('Name'),
-                        ColorPicker::make('color')->label('Farbe')
+                        TextInput::make('name')->required(),
                     ])
-                    ->columns(2)
             ]);
     }
 
@@ -41,20 +38,14 @@ class CategoryResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id')
-                    ->label('ID')
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('name')
-                    ->label('Name')
                     ->sortable()
                     ->searchable(),
-                ColorColumn::make('color')
-                    ->label('Farbe'),
                 TextColumn::make('created_at')
                     ->dateTime()
-                    ->label('Erstellt am')
-                    ->sortable()
-                    ->alignEnd(),
+                    ->sortable(),
             ])
             ->filters([
                 //
