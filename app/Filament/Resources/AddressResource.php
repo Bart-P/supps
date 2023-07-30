@@ -79,7 +79,7 @@ class AddressResource extends Resource
                 TextColumn::make('country')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('created_at')
+                TextColumn::make('updated_at')
                     ->dateTime('d.m.Y G:i', 'Europe/Berlin')
                     ->sortable(),
             ])

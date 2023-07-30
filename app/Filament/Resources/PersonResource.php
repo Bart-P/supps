@@ -56,6 +56,9 @@ class PersonResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make('id')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('supplier_id')
                     ->sortable()
                     ->searchable(),
@@ -71,7 +74,7 @@ class PersonResource extends Resource
                 TextColumn::make('last_name')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('created_at')
+                TextColumn::make('updated_at')
                     ->dateTime('d.m.Y G:i', 'Europe/Berlin')
                     ->sortable(),
             ])

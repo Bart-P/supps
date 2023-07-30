@@ -38,9 +38,6 @@ class PrintTypeResource extends Resource
             ->columns([
                 TextColumn::make('id')->sortable()->searchable(),
                 TextColumn::make('name')->sortable()->searchable(),
-                TextColumn::make('created_at')
-                    ->sortable()
-                    ->dateTime('d.m.Y G:i', 'Europe/Berlin'),
                 TextColumn::make('updated_at')
                     ->sortable()
                     ->dateTime('d.m.Y G:i', 'Europe/Berlin'),
