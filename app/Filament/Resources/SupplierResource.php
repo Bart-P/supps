@@ -40,17 +40,12 @@ class SupplierResource extends Resource
                             ->relationship('categories', 'name')
                             ->columns(4)
                             ->required(),
+                        CheckboxList::make('print_type')
+                            ->relationship('print_types', 'name')
+                            ->columns(4),
                         Select::make('tag')
                             ->relationship('tags', 'name')
-                            ->options(function (callable $get) {
-                                $categories = Category::find($get('category'))->pluck('id');
-                                if ($categories) {
-                                    $tags = Tag::all()
-                                        ->whereIn('category_id', $categories)
-                                        ->pluck('name', 'id');
-                                    return $tags;
-                                }
-                            })
+                            ->preload()
                             ->multiple(),
                     ])
             ]);
