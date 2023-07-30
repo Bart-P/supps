@@ -20,7 +20,7 @@ class PrintTypeResource extends Resource
 {
     protected static ?string $model = PrintType::class;
     protected static ?string $navigationIcon = 'heroicon-o-collection';
-    protected static ?string $navigationGroup = 'All';
+    protected static ?string $navigationGroup = 'Filter';
 
     public static function form(Form $form): Form
     {

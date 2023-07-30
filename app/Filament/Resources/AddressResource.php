@@ -23,7 +23,7 @@ class AddressResource extends Resource
 {
     protected static ?string $model = Address::class;
     protected static ?string $navigationIcon = 'heroicon-o-collection';
-    protected static ?string $navigationGroup = 'All';
+    protected static ?string $navigationGroup = 'Data';
 
     public static function form(Form $form): Form
     {
