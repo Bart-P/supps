@@ -30,10 +30,6 @@ class TagResource extends Resource
             ->schema([
                 Card::make()
                     ->schema([
-                        Select::make('category_id')
-                            ->options(Category::all()->pluck('name', 'id'))
-                            ->searchable()
-                            ->required(),
                         TextInput::make('name')->required(),
                     ])
             ]);
@@ -46,9 +42,6 @@ class TagResource extends Resource
                 TextColumn::make('id')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('category_id')
-                    ->searchable()
-                    ->sortable(),
                 TextColumn::make('name')
                     ->sortable()
                     ->searchable(),
@@ -61,10 +54,9 @@ class TagResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
-            ]);
+            ->bulkActions([]);
     }
 
     public static function getRelations(): array
