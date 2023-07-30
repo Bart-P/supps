@@ -17,6 +17,7 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -73,8 +74,15 @@ class SupplierResource extends Resource
             ])
             ->filters([
                 SelectFilter::make('category')
+                    ->searchable()
                     ->relationship('categories', 'name'),
+                SelectFilter::make('print_type')
+                    ->searchable()
+                    ->multiple()
+                    ->relationship('print_types', 'name'),
                 SelectFilter::make('tag')
+                    ->searchable()
+                    ->multiple()
                     ->relationship('tags', 'name'),
             ])
             ->actions([
