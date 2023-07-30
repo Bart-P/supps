@@ -35,6 +35,6 @@ class Supplier extends Model
 
     public function tags(): BelongsToMany
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class)->withPivot('tag_id');
     }
 }
