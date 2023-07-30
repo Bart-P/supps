@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class PrintTypeResource extends Resource
 {
     protected static ?string $model = PrintType::class;
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-printer';
     protected static ?string $navigationGroup = 'Filter';
 
     public static function form(Form $form): Form
