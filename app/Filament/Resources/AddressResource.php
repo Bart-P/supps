@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\AddressResource\Pages;
-use App\Filament\Resources\AddressResource\RelationManagers;
 use App\Models\Address;
 use App\Models\Supplier;
 use Filament\Forms;
@@ -38,14 +37,14 @@ class AddressResource extends Resource
                     Select::make('type')
                         ->options(['Invoice', 'Delivery', 'Other'])
                         ->required(),
-                    TextInput::make('name1'),
+                    TextInput::make('name1')->required(),
                     TextInput::make('name2'),
                     TextInput::make('name3'),
-                    TextInput::make('street'),
-                    TextInput::make('street_nr'),
-                    TextInput::make('city_code'),
-                    TextInput::make('city'),
-                    TextInput::make('country'),
+                    TextInput::make('street')->required(),
+                    TextInput::make('street_nr')->required(),
+                    TextInput::make('city_code')->required(),
+                    TextInput::make('city')->required(),
+                    TextInput::make('country')->required(),
                     TextInput::make('phone'),
                 ])
 
