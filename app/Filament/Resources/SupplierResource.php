@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\SupplierResource\Pages;
 use App\Filament\Resources\SupplierResource\RelationManagers;
+use App\Filament\Resources\SupplierResource\RelationManagers\AddressesRelationManager;
 use App\Models\Category;
 use App\Models\Supplier;
 use App\Models\Tag;
@@ -96,7 +97,7 @@ class SupplierResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            AddressesRelationManager::class,
         ];
     }
 
