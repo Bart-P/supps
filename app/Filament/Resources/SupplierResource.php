@@ -3,13 +3,9 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\SupplierResource\Pages;
-use App\Filament\Resources\SupplierResource\RelationManagers;
 use App\Filament\Resources\SupplierResource\RelationManagers\AddressesRelationManager;
 use App\Filament\Resources\SupplierResource\RelationManagers\PeopleRelationManager;
-use App\Models\Category;
 use App\Models\Supplier;
-use App\Models\Tag;
-use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\Select;
@@ -19,10 +15,7 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class SupplierResource extends Resource
 {
