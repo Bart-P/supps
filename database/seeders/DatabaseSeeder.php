@@ -16,8 +16,10 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             CategorySeeder::class,
-            PrintTypeSeeder::class,
+            # ProductSeeder has to come after CategorySeeder
             ProductSeeder::class,
+            PrintTypeSeeder::class,
+            TagSeeder::class,
         ]);
     }
 }
