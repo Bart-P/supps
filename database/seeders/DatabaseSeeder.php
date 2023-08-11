@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             PrintTypeSeeder::class,
             TagSeeder::class,
+            # call SupplierSeeder at the end because it depends on all of the above
+            SupplierSeeder::class,
         ]);
     }
 }
