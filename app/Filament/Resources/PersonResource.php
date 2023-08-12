@@ -3,10 +3,8 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PersonResource\Pages;
-use App\Filament\Resources\PersonResource\RelationManagers;
 use App\Models\Person;
 use App\Models\Supplier;
-use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -15,8 +13,6 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PersonResource extends Resource
 {
@@ -59,7 +55,7 @@ class PersonResource extends Resource
                 TextColumn::make('id')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('supplier_id')
+                TextColumn::make('supplier.name')
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('type')
@@ -74,8 +70,8 @@ class PersonResource extends Resource
                 TextColumn::make('last_name')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('updated_at')
-                    ->dateTime('d.m.Y G:i', 'Europe/Berlin')
+                TextColumn::make('email1')
+                    ->searchable()
                     ->sortable(),
             ])
             ->filters([
