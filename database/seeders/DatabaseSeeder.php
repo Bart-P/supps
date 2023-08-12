@@ -20,8 +20,11 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             PrintTypeSeeder::class,
             TagSeeder::class,
-            # call SupplierSeeder at the end because it depends on all of the above
+            # call SupplierSeeder after print, tag and category because it depends on them
             SupplierSeeder::class,
+            # call Address and Person Seeder after Supplier, both need a supplier_id
+            AddressSeeder::class,
+            PersonSeeder::class,
         ]);
     }
 }
