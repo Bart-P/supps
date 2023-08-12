@@ -59,19 +59,11 @@ class AddressResource extends Resource
                 TextColumn::make('id')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('supplier_id')
-                    ->label('Supp. ID')
+                TextColumn::make('supplier.name')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('name1')
                     ->label('Name')
-                    ->sortable()
-                    ->searchable(),
-                TextColumn::make('street')
-                    ->sortable()
-                    ->searchable(),
-                TextColumn::make('street_nr')
-                    ->label('Nr.')
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('city_code')
@@ -85,7 +77,7 @@ class AddressResource extends Resource
                     ->sortable(),
             ])
             ->filters([
-                //
+                SelectFilter::make('country'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
