@@ -20,7 +20,6 @@ use Filament\Tables\Filters\SelectFilter;
 class SupplierResource extends Resource
 {
     protected static ?string $model = Supplier::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-truck';
 
     public static function form(Form $form): Form
@@ -56,13 +55,16 @@ class SupplierResource extends Resource
                     ->searchable(),
                 TextColumn::make('name')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->limit(30),
                 TextColumn::make('email')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->limit(30),
                 TextColumn::make('web')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->limit(30),
                 TextColumn::make('created_at')
                     ->dateTime('d.m.Y G:i', 'Europe/Berlin')
                     ->sortable(),
