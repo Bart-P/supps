@@ -23,7 +23,7 @@ class Person extends Model
         'email2',
     ];
 
-    public function suppliers(): BelongsTo
+    public function supplier(): BelongsTo
     {
         return $this->belongsTo(Supplier::class);
     }
