@@ -5,17 +5,24 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\SupplierResource\Pages;
 use App\Filament\Resources\SupplierResource\RelationManagers\AddressesRelationManager;
 use App\Filament\Resources\SupplierResource\RelationManagers\PeopleRelationManager;
+use App\Models\Category;
+use App\Models\PrintType;
+use App\Models\Product;
 use App\Models\Supplier;
+use App\Models\Tag;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Database\Eloquent\Collection;
 
 class SupplierResource extends Resource
 {
@@ -94,6 +101,90 @@ class SupplierResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
+                BulkAction::make('updateCategory')
+                    ->action(function (Collection $records, array $data): void {
+                        $records->each(function ($record) use ($data) {
+                            $record->categories()->syncWithoutDetaching($data['category_id']);
+                            $record->categories()->detach($data['remove_category_id']);
+                            if (count($record->categories()->get()) < 1) {
+                                $record->categories()->attach($data['remove_category_id'][0]);
+                                Notification::make()
+                                    ->title(
+                                        'A Supplier has to have at least one category! Reassigned category id: '
+                                            . $data['remove_category_id'][0]
+                                    )
+                                    ->warning()
+                                    ->send();
+                            }
+                        });
+                    })
+                    ->form([
+                        Select::make('category_id')
+                            ->label('add Category')
+                            ->options(Category::all()->pluck('name', 'id'))
+                            ->multiple()
+                            ->searchable(),
+                        Select::make('remove_category_id')
+                            ->label('remove Category')
+                            ->options(Category::all()->pluck('name', 'id'))
+                            ->multiple()
+                            ->searchable()
+                    ]),
+                BulkAction::make('updateTag')
+                    ->action(function (Collection $records, array $data): void {
+                        $records->each(function ($record) use ($data) {
+                            $record->tags()->syncWithoutDetaching($data['tag_id']);
+                            $record->tags()->detach($data['remove_tag_id']);
+                        });
+                    })
+                    ->form([
+                        Select::make('tag_id')
+                            ->options(Tag::all()->pluck('name', 'id'))
+                            ->multiple()
+                            ->searchable(),
+                        Select::make('remove_tag_id')
+                            ->label('remove Tag')
+                            ->options(Tag::all()->pluck('name', 'id'))
+                            ->multiple()
+                            ->searchable()
+                    ]),
+                BulkAction::make('updateProduct')
+                    ->action(function (Collection $records, array $data): void {
+                        $records->each(function ($record) use ($data) {
+                            $record->products()->syncWithoutDetaching($data['product_id']);
+                            $record->products()->detach($data['remove_product_id']);
+                        });
+                    })
+                    ->form([
+                        Select::make('product_id')
+                            ->options(Product::all()->pluck('name', 'id'))
+                            ->label('add Product')
+                            ->multiple()
+                            ->searchable(),
+                        Select::make('remove_product_id')
+                            ->label('remove Product')
+                            ->options(Product::all()->pluck('name', 'id'))
+                            ->multiple()
+                            ->searchable()
+                    ]),
+                BulkAction::make('updatePrintType')
+                    ->action(function (Collection $records, array $data): void {
+                        $records->each(function ($record) use ($data) {
+                            $record->print_types()->syncWithoutDetaching($data['print_type_id']);
+                            $record->print_types()->detach($data['remove_print_type_id']);
+                        });
+                    })
+                    ->form([
+                        Select::make('print_type_id')
+                            ->options(PrintType::all()->pluck('name', 'id'))
+                            ->multiple()
+                            ->searchable(),
+                        Select::make('remove_print_type_id')
+                            ->label('remove Tag')
+                            ->options(PrintType::all()->pluck('name', 'id'))
+                            ->multiple()
+                            ->searchable()
+                    ]),
             ]);
     }
 
