@@ -12,8 +12,10 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Database\Eloquent\Collection;
 
 class AddressResource extends Resource
 {
@@ -73,7 +75,7 @@ class AddressResource extends Resource
                     ->sortable(),
             ])
             ->filters([
-                SelectFilter::make('country'),
+                //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -81,6 +83,11 @@ class AddressResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
+                BulkAction::make('updateCategory')
+                    ->action(function (Collection $records, array $data): void {
+                        $records->each(function ($record) {
+                        });
+                    })
             ]);
     }
 
