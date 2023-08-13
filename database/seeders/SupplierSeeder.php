@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\Supplier;
 use App\Models\Tag;
 use Illuminate\Database\Seeder;
@@ -19,8 +20,13 @@ class SupplierSeeder extends Seeder
         $suppliers->each(function ($supp) {
             $cat = Category::all('id')->random(1);
             $tag = Tag::all('id')->random(1);
+            $products = Product::all('id')->random(random_int(1, 4));
             $supp->categories()->attach($cat->values()[0]->id);
             $supp->tags()->attach($tag->values()[0]->id);
+
+            $products->each(function ($product) use ($supp) {
+                $supp->products()->attach($product->id);
+            });
         });
 
         $cardboardSuppliers = Category::find(1)->suppliers();
