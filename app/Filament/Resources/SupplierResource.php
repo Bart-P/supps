@@ -33,11 +33,15 @@ class SupplierResource extends Resource
                         TextInput::make('web')->url(),
                         CheckboxList::make('category')
                             ->relationship('categories', 'name')
-                            ->columns(4)
+                            ->columns(5)
                             ->required(),
                         CheckboxList::make('print_type')
                             ->relationship('print_types', 'name')
-                            ->columns(4),
+                            ->columns(5),
+                        Select::make('product')
+                            ->preload()
+                            ->multiple()
+                            ->relationship('products', 'name'),
                         Select::make('tag')
                             ->relationship('tags', 'name')
                             ->preload()
@@ -77,6 +81,9 @@ class SupplierResource extends Resource
                     ->searchable()
                     ->multiple()
                     ->relationship('print_types', 'name'),
+                SelectFilter::make('product')
+                    ->searchable()
+                    ->relationship('products', 'name'),
                 SelectFilter::make('tag')
                     ->searchable()
                     ->multiple()
