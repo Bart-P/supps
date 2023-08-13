@@ -118,6 +118,7 @@ class SupplierResource extends Resource
                             }
                         });
                     })
+                    ->icon('heroicon-o-collection')
                     ->form([
                         Select::make('category_id')
                             ->label('add Category')
@@ -137,6 +138,7 @@ class SupplierResource extends Resource
                             $record->tags()->detach($data['remove_tag_id']);
                         });
                     })
+                    ->icon('heroicon-o-tag')
                     ->form([
                         Select::make('tag_id')
                             ->options(Tag::all()->pluck('name', 'id'))
@@ -155,6 +157,7 @@ class SupplierResource extends Resource
                             $record->products()->detach($data['remove_product_id']);
                         });
                     })
+                    ->icon('heroicon-o-cube')
                     ->form([
                         Select::make('product_id')
                             ->options(Product::all()->pluck('name', 'id'))
@@ -174,6 +177,7 @@ class SupplierResource extends Resource
                             $record->print_types()->detach($data['remove_print_type_id']);
                         });
                     })
+                    ->icon('heroicon-o-printer')
                     ->form([
                         Select::make('print_type_id')
                             ->options(PrintType::all()->pluck('name', 'id'))
