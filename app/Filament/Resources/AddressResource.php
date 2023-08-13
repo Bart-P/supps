@@ -83,11 +83,6 @@ class AddressResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
-                BulkAction::make('updateCategory')
-                    ->action(function (Collection $records, array $data): void {
-                        $records->each(function ($record) {
-                        });
-                    })
             ]);
     }
 
