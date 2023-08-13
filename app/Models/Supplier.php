@@ -38,6 +38,11 @@ class Supplier extends Model
         return $this->belongsToMany(PrintType::class)->withPivot('print_type_id');
     }
 
+    public function products(): BelongsToMany
+    {
+        return $this->belongsToMany(Product::class)->withPivot('product_id');
+    }
+
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class)->withPivot('tag_id');
