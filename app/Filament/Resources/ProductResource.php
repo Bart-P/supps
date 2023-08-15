@@ -11,9 +11,11 @@ use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
+use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Database\Eloquent\Collection;
 
 class ProductResource extends Resource
 {
@@ -61,7 +63,19 @@ class ProductResource extends Resource
                 DeleteAction::make(),
             ])
             ->bulkActions([
-                //
+                BulkAction::make('update_category')
+                    ->icon('heroicon-o-collection')
+                    ->action(function (Collection $records, array $data) {
+                        $records->each(function ($product) use ($data) {
+                            $product->category()->associate($data['category']);
+                            $product->save();
+                        });
+                    })
+                    ->form([
+                        Select::make('category')
+                            ->options(Category::all()->pluck('name', 'id'))
+                            ->searchable()
+                    ])
             ]);
     }
 
