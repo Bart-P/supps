@@ -22,7 +22,9 @@ use Filament\Tables;
 use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 class SupplierResource extends Resource
 {
@@ -41,14 +43,22 @@ class SupplierResource extends Resource
                         CheckboxList::make('category')
                             ->relationship('categories', 'name')
                             ->columns(5)
-                            ->required(),
+                            ->required()
+                            ->reactive(),
                         CheckboxList::make('print_type')
                             ->relationship('print_types', 'name')
                             ->columns(5),
                         Select::make('product')
+                            ->relationship('products', 'name', function (callable $get, Builder $query) {;
+                                // TODO - when a category is unselected, all related products should be unselected
+                                return $query->whereIn('category_id', array_values($get('category')));
+                            })
+                            ->getOptionLabelFromRecordUsing(function (Model $record) {
+                                $catName = $record->category()->get('name');
+                                return "{$record->name} ({$catName[0]->name})";
+                            })
                             ->preload()
-                            ->multiple()
-                            ->relationship('products', 'name'),
+                            ->multiple(),
                         Select::make('tag')
                             ->relationship('tags', 'name')
                             ->preload()
@@ -102,6 +112,7 @@ class SupplierResource extends Resource
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
                 BulkAction::make('updateCategory')
+                    ->icon('heroicon-o-collection')
                     ->action(function (Collection $records, array $data): void {
                         $records->each(function ($record) use ($data) {
                             $record->categories()->syncWithoutDetaching($data['category_id']);
@@ -118,7 +129,6 @@ class SupplierResource extends Resource
                             }
                         });
                     })
-                    ->icon('heroicon-o-collection')
                     ->form([
                         Select::make('category_id')
                             ->label('add Category')
@@ -132,13 +142,13 @@ class SupplierResource extends Resource
                             ->searchable()
                     ]),
                 BulkAction::make('updateTag')
+                    ->icon('heroicon-o-tag')
                     ->action(function (Collection $records, array $data): void {
                         $records->each(function ($record) use ($data) {
                             $record->tags()->syncWithoutDetaching($data['tag_id']);
                             $record->tags()->detach($data['remove_tag_id']);
                         });
                     })
-                    ->icon('heroicon-o-tag')
                     ->form([
                         Select::make('tag_id')
                             ->options(Tag::all()->pluck('name', 'id'))
@@ -151,13 +161,13 @@ class SupplierResource extends Resource
                             ->searchable()
                     ]),
                 BulkAction::make('updateProduct')
+                    ->icon('heroicon-o-cube')
                     ->action(function (Collection $records, array $data): void {
                         $records->each(function ($record) use ($data) {
                             $record->products()->syncWithoutDetaching($data['product_id']);
                             $record->products()->detach($data['remove_product_id']);
                         });
                     })
-                    ->icon('heroicon-o-cube')
                     ->form([
                         Select::make('product_id')
                             ->options(Product::all()->pluck('name', 'id'))
@@ -171,13 +181,13 @@ class SupplierResource extends Resource
                             ->searchable()
                     ]),
                 BulkAction::make('updatePrintType')
+                    ->icon('heroicon-o-printer')
                     ->action(function (Collection $records, array $data): void {
                         $records->each(function ($record) use ($data) {
                             $record->print_types()->syncWithoutDetaching($data['print_type_id']);
                             $record->print_types()->detach($data['remove_print_type_id']);
                         });
                     })
-                    ->icon('heroicon-o-printer')
                     ->form([
                         Select::make('print_type_id')
                             ->options(PrintType::all()->pluck('name', 'id'))
