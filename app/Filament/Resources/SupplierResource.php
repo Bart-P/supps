@@ -103,7 +103,6 @@ class SupplierResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
                 BulkAction::make('updateCategory')
                     ->icon('heroicon-o-collection')
                     ->action(function (Collection $records, array $data): void {
@@ -192,6 +191,7 @@ class SupplierResource extends Resource
                             ->multiple()
                             ->searchable()
                     ]),
+                Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 
