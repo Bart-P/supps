@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\SupplierResource\Pages;
 use App\Filament\Resources\SupplierResource\RelationManagers\AddressesRelationManager;
+use App\Filament\Resources\SupplierResource\RelationManagers\CategoriesRelationManager;
 use App\Filament\Resources\SupplierResource\RelationManagers\PeopleRelationManager;
 use App\Models\Category;
 use App\Models\PrintType;
@@ -20,6 +21,7 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Actions\BulkAction;
+use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
@@ -191,7 +193,7 @@ class SupplierResource extends Resource
                             ->multiple()
                             ->searchable()
                     ]),
-                Tables\Actions\DeleteBulkAction::make(),
+                DeleteBulkAction::make(),
             ]);
     }
 
@@ -200,6 +202,7 @@ class SupplierResource extends Resource
         return [
             AddressesRelationManager::class,
             PeopleRelationManager::class,
+            CategoriesRelationManager::class,
         ];
     }
 
