@@ -3,19 +3,15 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductResource\Pages;
-use App\Models\Category;
 use App\Models\Product;
 use Filament\Forms\Components\Card;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
-use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
-use Illuminate\Database\Eloquent\Collection;
 
 class ProductResource extends Resource
 {
@@ -30,10 +26,6 @@ class ProductResource extends Resource
                 Card::make()
                     ->schema([
                         TextInput::make('name')->required(),
-                        Select::make('category_id')
-                            ->options(Category::all()->pluck('name', 'id'))
-                            ->searchable()
-                            ->required(),
                     ])
             ]);
     }
@@ -48,13 +40,11 @@ class ProductResource extends Resource
                 TextColumn::make('name')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('category.name')
-                    ->sortable()
-                    ->searchable(),
-                TextColumn::make('created_at')
+                TextColumn::make('updated_at')
                     ->dateTime('d.m.Y G:i', 'Europe/Berlin')
                     ->sortable(),
             ])
+            ->defaultSort('updated_at', 'desc')
             ->filters([
                 //
             ])
@@ -63,19 +53,7 @@ class ProductResource extends Resource
                 DeleteAction::make(),
             ])
             ->bulkActions([
-                BulkAction::make('update_category')
-                    ->icon('heroicon-o-collection')
-                    ->action(function (Collection $records, array $data) {
-                        $records->each(function ($product) use ($data) {
-                            $product->category()->associate($data['category']);
-                            $product->save();
-                        });
-                    })
-                    ->form([
-                        Select::make('category')
-                            ->options(Category::all()->pluck('name', 'id'))
-                            ->searchable()
-                    ])
+                //
             ]);
     }
 
