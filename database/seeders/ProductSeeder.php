@@ -15,59 +15,39 @@ class ProductSeeder extends Seeder
         Product::factory()->createMany([
             [
                 'name' => 'Thekenaufsteller',
-                'category_id' => 1,
             ],
             [
                 'name' => 'Warenträger',
-                'category_id' => 1,
             ],
             [
                 'name' => 'Ellipse',
-                'category_id' => 1,
             ],
             [
                 'name' => 'Vollpappe',
-                'category_id' => 1,
             ],
             [
                 'name' => 'Flyer',
-                'category_id' => 1,
             ],
             [
                 'name' => 'Plakate',
-                'category_id' => 1,
-            ],
-            [
-                'name' => 'Thekenaufsteller',
-                'category_id' => 2,
-            ],
-            [
-                'name' => 'Bodenaufsteller',
-                'category_id' => 2,
             ],
             [
                 'name' => 'Schrank',
-                'category_id' => 3,
             ],
             [
                 'name' => 'Blech',
-                'category_id' => 5,
             ],
             [
                 'name' => 'Draht',
-                'category_id' => 5,
             ],
             [
                 'name' => 'Aufkleber',
-                'category_id' => 9,
             ],
             [
                 'name' => 'PVC',
-                'category_id' => 9,
             ],
             [
                 'name' => 'Außenbanner',
-                'category_id' => 9,
             ],
         ]);
     }

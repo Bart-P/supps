@@ -49,14 +49,7 @@ class SupplierResource extends Resource
                             ->relationship('print_types', 'name')
                             ->columns(5),
                         Select::make('product')
-                            ->relationship('products', 'name', function (callable $get, Builder $query) {;
-                                // TODO - when a category is unselected, all related products should be unselected
-                                return $query->whereIn('category_id', array_values($get('category')));
-                            })
-                            ->getOptionLabelFromRecordUsing(function (Model $record) {
-                                $catName = $record->category()->get('name');
-                                return "{$record->name} ({$catName[0]->name})";
-                            })
+                            ->relationship('products', 'name')
                             ->preload()
                             ->multiple(),
                         Select::make('tag')

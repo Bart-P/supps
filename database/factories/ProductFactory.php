@@ -18,7 +18,6 @@ class ProductFactory extends Factory
     {
         return [
             'name' => fake()->word(),
-            'category_id' => fake()->randomDigitNotZero(),
         ];
     }
 }
