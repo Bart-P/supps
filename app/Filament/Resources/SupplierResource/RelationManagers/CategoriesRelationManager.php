@@ -31,6 +31,7 @@ class CategoriesRelationManager extends RelationManager
             ]);
     }
 
+
     // TODO RelationManager should reload when new Category is added in form on top
     public static function table(Table $table): Table
     {
@@ -42,17 +43,24 @@ class CategoriesRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                CreateAction::make(),
-                AttachAction::make(),
+                CreateAction::make()
+                    ->after(fn ($livewire) => $livewire->emit('refreshCategoryFields')),
+                AttachAction::make()
+                    ->after(fn ($livewire) => $livewire->emit('refreshCategoryFields')),
             ])
             ->actions([
-                EditAction::make(),
-                DeleteAction::make(),
-                DetachAction::make(),
+                EditAction::make()
+                    ->after(fn ($livewire) => $livewire->emit('refreshCategoryFields')),
+                DeleteAction::make()
+                    ->after(fn ($livewire) => $livewire->emit('refreshCategoryFields')),
+                DetachAction::make()
+                    ->after(fn ($livewire) => $livewire->emit('refreshCategoryFields')),
             ])
             ->bulkActions([
-                DeleteBulkAction::make(),
-                DetachBulkAction::make(),
+                DeleteBulkAction::make()
+                    ->after(fn ($livewire) => $livewire->emit('refreshCategoryFields')),
+                DetachBulkAction::make()
+                    ->after(fn ($livewire) => $livewire->emit('refreshCategoryFields')),
             ]);
     }
 }
