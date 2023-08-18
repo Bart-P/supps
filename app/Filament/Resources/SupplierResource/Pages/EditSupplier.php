@@ -10,9 +10,9 @@ class EditSupplier extends EditRecord
 {
     protected static string $resource = SupplierResource::class;
 
-    protected $listeners = ['refreshCategoryFields'];
+    protected $listeners = ['refreshFields'];
 
-    public function refreshCategoryFields()
+    public function refreshFields()
     {
         $this->fillForm();
     }

@@ -31,8 +31,6 @@ class CategoriesRelationManager extends RelationManager
             ]);
     }
 
-
-    // TODO RelationManager should reload when new Category is added in form on top
     public static function table(Table $table): Table
     {
         return $table
@@ -44,23 +42,23 @@ class CategoriesRelationManager extends RelationManager
             ])
             ->headerActions([
                 CreateAction::make()
-                    ->after(fn ($livewire) => $livewire->emit('refreshCategoryFields')),
+                    ->after(fn ($livewire) => $livewire->emit('refreshFields')),
                 AttachAction::make()
-                    ->after(fn ($livewire) => $livewire->emit('refreshCategoryFields')),
+                    ->after(fn ($livewire) => $livewire->emit('refreshFields')),
             ])
             ->actions([
                 EditAction::make()
-                    ->after(fn ($livewire) => $livewire->emit('refreshCategoryFields')),
+                    ->after(fn ($livewire) => $livewire->emit('refreshFields')),
                 DeleteAction::make()
-                    ->after(fn ($livewire) => $livewire->emit('refreshCategoryFields')),
+                    ->after(fn ($livewire) => $livewire->emit('refreshFields')),
                 DetachAction::make()
-                    ->after(fn ($livewire) => $livewire->emit('refreshCategoryFields')),
+                    ->after(fn ($livewire) => $livewire->emit('refreshFields')),
             ])
             ->bulkActions([
                 DeleteBulkAction::make()
-                    ->after(fn ($livewire) => $livewire->emit('refreshCategoryFields')),
+                    ->after(fn ($livewire) => $livewire->emit('refreshFields')),
                 DetachBulkAction::make()
-                    ->after(fn ($livewire) => $livewire->emit('refreshCategoryFields')),
+                    ->after(fn ($livewire) => $livewire->emit('refreshFields')),
             ]);
     }
 }
