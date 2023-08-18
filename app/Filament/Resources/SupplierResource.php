@@ -6,6 +6,9 @@ use App\Filament\Resources\SupplierResource\Pages;
 use App\Filament\Resources\SupplierResource\RelationManagers\AddressesRelationManager;
 use App\Filament\Resources\SupplierResource\RelationManagers\CategoriesRelationManager;
 use App\Filament\Resources\SupplierResource\RelationManagers\PeopleRelationManager;
+use App\Filament\Resources\SupplierResource\RelationManagers\PrintTypesRelationManager;
+use App\Filament\Resources\SupplierResource\RelationManagers\ProductsRelationManager;
+use App\Filament\Resources\SupplierResource\RelationManagers\TagsRelationManager;
 use App\Models\Category;
 use App\Models\PrintType;
 use App\Models\Product;
@@ -201,6 +204,9 @@ class SupplierResource extends Resource
             AddressesRelationManager::class,
             PeopleRelationManager::class,
             CategoriesRelationManager::class,
+            PrintTypesRelationManager::class,
+            ProductsRelationManager::class,
+            TagsRelationManager::class,
         ];
     }
 
