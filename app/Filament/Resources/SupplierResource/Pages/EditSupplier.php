@@ -23,4 +23,9 @@ class EditSupplier extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    protected function afterSave()
+    {
+        $this->emit('refreshRelationManagers');
+    }
 }

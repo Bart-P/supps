@@ -18,8 +18,10 @@ use Filament\Tables\Actions\EditAction;
 class PrintTypesRelationManager extends RelationManager
 {
     protected static string $relationship = 'print_types';
-
     protected static ?string $recordTitleAttribute = 'name';
+
+    protected $listeners = ['refreshRelationManagers' => '$refresh'];
+
 
     public static function form(Form $form): Form
     {

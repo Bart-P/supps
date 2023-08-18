@@ -18,8 +18,9 @@ use Filament\Tables\Actions\EditAction;
 class ProductsRelationManager extends RelationManager
 {
     protected static string $relationship = 'products';
-
     protected static ?string $recordTitleAttribute = 'name';
+
+    protected $listeners = ['refreshRelationManagers' => '$refresh'];
 
     public static function form(Form $form): Form
     {
