@@ -16,4 +16,11 @@ class Tag extends Model
     {
         return $this->belongsToMany(Supplier::class)->withPivot('supplier_id');
     }
+
+    public function delete()
+    {
+        $this->suppliers()->detach();
+
+        return parent::delete();
+    }
 }

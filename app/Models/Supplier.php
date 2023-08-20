@@ -47,4 +47,14 @@ class Supplier extends Model
     {
         return $this->belongsToMany(Tag::class)->withPivot('tag_id');
     }
+
+    public function delete()
+    {
+        $this->tags()->detach();
+        $this->categories()->detach();
+        $this->products()->detach();
+        $this->print_types()->detach();
+
+        return parent::delete();
+    }
 }
