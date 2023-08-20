@@ -21,4 +21,12 @@ class Category extends Model
     {
         return $this->belongsToMany(Supplier::class)->withPivot('supplier_id');
     }
+
+    public function delete()
+    {
+        $this->suppliers()->detach();
+        $this->tags()->detach();
+
+        return parent::delete();
+    }
 }
