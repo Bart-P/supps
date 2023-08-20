@@ -27,6 +27,7 @@ use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 class SupplierResource extends Resource
@@ -82,10 +83,11 @@ class SupplierResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->limit(30),
-                TextColumn::make('created_at')
+                TextColumn::make('updated_at')
                     ->dateTime('d.m.Y G:i', 'Europe/Berlin')
                     ->sortable(),
             ])
+            ->defaultSort('updated_at', 'desc')
             ->filters([
                 SelectFilter::make('category')
                     ->searchable()
