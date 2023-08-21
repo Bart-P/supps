@@ -53,24 +53,34 @@ class PersonResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id')
+                    ->grow(false)
+                    ->copyable()
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('supplier.name')
-                    ->sortable()
-                    ->searchable(),
-                TextColumn::make('type')
+                    ->copyable()
+                    ->limit(17)
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('gender')
+                    ->formatStateUsing(fn (string $state): string => __("{$state}")[0])
+                    ->grow(false)
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('first_name')
+                    ->copyable()
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('last_name')
+                    ->copyable()
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('email1')
+                    ->copyable()
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('phone1')
+                    ->copyable()
                     ->searchable()
                     ->sortable(),
             ])
