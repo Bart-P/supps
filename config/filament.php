@@ -1,5 +1,7 @@
 <?php
 
+use App\Filament\Resources\SuppliersResource\Widgets\SuppliersCount;
+use App\Filament\Widgets\OverviewCount;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Http\Middleware\MirrorConfigToSubpackages;
@@ -140,7 +142,7 @@ return [
         'path' => app_path('Filament/Widgets'),
         'register' => [
             Widgets\AccountWidget::class,
-            Widgets\FilamentInfoWidget::class,
+            OverviewCount::class,
         ],
     ],
 
