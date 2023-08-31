@@ -25,6 +25,8 @@ class DatabaseSeeder extends Seeder
             # call Address and Person Seeder after Supplier, both need a supplier_id
             AddressSeeder::class,
             PersonSeeder::class,
+
+            ProjectSeeder::class,
         ]);
     }
 }
