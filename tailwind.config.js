@@ -12,10 +12,12 @@ export default {
     theme: {
         extend: {
             colors: {
-                danger: colors.rose,
+                danger: colors.red,
                 primary: colors.blue,
                 success: colors.green,
-                warning: colors.yellow,
+                warning: colors.orange,
+                gray: colors.gray,
+                info: colors.purple,
             },
         },
     },
