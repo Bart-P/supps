@@ -5,12 +5,12 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\PersonResource\Pages;
 use App\Models\Person;
 use App\Models\Supplier;
-use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
+use Filament\Tables\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 
@@ -24,7 +24,7 @@ class PersonResource extends Resource
     {
         return $form
             ->schema([
-                Card::make()->schema([
+                Section::make()->schema([
                     Select::make('supplier_id')
                         ->options(Supplier::all()->pluck('name', 'id'))
                         ->searchable()

@@ -14,14 +14,14 @@ use App\Models\PrintType;
 use App\Models\Product;
 use App\Models\Supplier;
 use App\Models\Tag;
-use Filament\Forms\Components\Card;
+use Filament\Forms\Form;
 use Filament\Forms\Components\CheckboxList;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
-use Filament\Resources\Form;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
+use Filament\Tables\Table;
 use Filament\Tables;
 use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Actions\DeleteBulkAction;
@@ -38,7 +38,7 @@ class SupplierResource extends Resource
     {
         return $form
             ->schema([
-                Card::make()
+                Section::make()
                     ->schema([
                         TextInput::make('name')->required(),
                         TextInput::make('email')->email()->required(),
@@ -108,6 +108,7 @@ class SupplierResource extends Resource
             ])
             ->bulkActions([
                 BulkAction::make('updateCategory')
+                    ->icon('heroicon-o-rectangle-stack')
                     ->action(function (Collection $records, array $data): void {
                         $records->each(function ($record) use ($data) {
                             $record->categories()->syncWithoutDetaching($data['category_id']);

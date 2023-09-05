@@ -4,11 +4,11 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
 use App\Models\User;
-use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
+use Filament\Tables\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 
@@ -23,13 +23,13 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Card::make()->schema([
+                Section::make()->schema([
                     TextInput::make('name')
                         ->minLength(2),
                     TextInput::make('email')
                         ->email(),
                 ]),
-                Card::make()->schema([
+                Section::make()->schema([
                     TextInput::make('password')
                         ->label('New Password')
                         ->confirmed()

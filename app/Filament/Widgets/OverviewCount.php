@@ -7,7 +7,7 @@ use App\Models\PrintType;
 use App\Models\Supplier;
 use App\Models\Tag;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
-use Filament\Widgets\StatsOverviewWidget\Card;
+use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class OverviewCount extends BaseWidget
 {
@@ -19,10 +19,12 @@ class OverviewCount extends BaseWidget
         $tagsCount = Tag::all()->count();
 
         return [
-            Card::make('Suppliers', $suppliersCount),
-            Card::make('Categories', $categoriesCount),
-            Card::make('Print Types', $printTypesCount),
-            Card::make('Tags', $tagsCount),
+            Stat::make('Suppliers', $suppliersCount)
+                ->color('primary'),
+            Stat::make('Categories', $categoriesCount)
+                ->color('success'),
+            Stat::make('Print Types', $printTypesCount),
+            Stat::make('Tags', $tagsCount),
         ];
     }
 }
