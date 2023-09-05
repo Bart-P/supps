@@ -5,26 +5,28 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\AddressResource\Pages;
 use App\Models\Address;
 use App\Models\Supplier;
-use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
-use Filament\Tables;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 
 class AddressResource extends Resource
 {
     protected static ?string $model = Address::class;
-    protected static ?string $navigationIcon = 'heroicon-o-mail-open';
+    protected static ?string $navigationIcon = 'heroicon-o-envelope-open';
     protected static ?string $navigationGroup = 'Data';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Card::make()->schema([
+                Section::make()->schema([
                     Select::make('supplier_id')
                         ->label('Supplier')
                         ->options(Supplier::all()->pluck('name', 'id'))
@@ -75,11 +77,11 @@ class AddressResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                EditAction::make(),
+                DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                DeleteBulkAction::make(),
             ]);
     }
 

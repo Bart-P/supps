@@ -108,7 +108,6 @@ class SupplierResource extends Resource
             ])
             ->bulkActions([
                 BulkAction::make('updateCategory')
-                    ->icon('heroicon-o-collection')
                     ->action(function (Collection $records, array $data): void {
                         $records->each(function ($record) use ($data) {
                             $record->categories()->syncWithoutDetaching($data['category_id']);
