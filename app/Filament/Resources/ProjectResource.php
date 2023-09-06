@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProjectResource\Pages;
+use App\Filament\Resources\ProjectResource\RelationManagers\InquiriesRelationManager;
 use App\Models\Project;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
@@ -61,7 +62,7 @@ class ProjectResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            InquiriesRelationManager::class,
         ];
     }
 
