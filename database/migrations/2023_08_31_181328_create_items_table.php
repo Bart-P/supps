@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('project_id');
             $table->foreignId('category_id');
             $table->foreignId('product_id');
+            $table->foreignId('inquiry_id');
             $table->string('name');
             $table->longText('description');
             $table->json('quantities');
