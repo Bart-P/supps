@@ -24,8 +24,8 @@ class ProjectResource extends Resource
             ->schema([
                 Section::make()
                     ->schema([
-                        TextInput::make('name')->required(),
                         TextInput::make('project_id')->required(),
+                        TextInput::make('name')->required(),
                     ])
             ]);
     }
