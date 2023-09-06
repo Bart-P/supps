@@ -19,7 +19,6 @@ class Item extends Model
         'quantities',
     ];
 
-
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
@@ -33,5 +32,10 @@ class Item extends Model
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function inquiry(): BelongsTo
+    {
+        return $this->belongsTo(Inquiry::class)->withPivot('inquiry_id');
     }
 }
