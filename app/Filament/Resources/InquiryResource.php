@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\InquiryResource\Pages;
+use App\Filament\Resources\InquiryResource\RelationManagers\ItemsRelationManager;
 use App\Models\Inquiry;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -54,7 +55,7 @@ class InquiryResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            ItemsRelationManager::class,
         ];
     }
 
