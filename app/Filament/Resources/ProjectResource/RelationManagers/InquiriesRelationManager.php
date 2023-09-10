@@ -13,8 +13,6 @@ class InquiriesRelationManager extends RelationManager
 {
     protected static string $relationship = 'inquiries';
 
-    // TODO -> relation edit should lead to separate page, create new inquiry resource with Item relationship etc.
-
     public function form(Form $form): Form
     {
         return $form
