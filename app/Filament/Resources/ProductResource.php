@@ -7,9 +7,7 @@ use App\Models\Product;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
-// use Filament\Resources\Form;
 use Filament\Resources\Resource;
-// use Filament\Resources\Table;
 use Filament\Tables\Table;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
@@ -20,7 +18,8 @@ class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
     protected static ?string $navigationIcon = 'heroicon-o-cube';
-    protected static ?string $navigationGroup = 'Data';
+    protected static ?string $navigationGroup = 'Filter';
+    protected static ?string $label = 'Product Groups';
 
     public static function form(Form $form): Form
     {
