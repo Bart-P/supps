@@ -17,7 +17,7 @@ use Filament\Tables\Columns\TextColumn;
 class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
-    protected static ?string $navigationIcon = 'heroicon-o-cube';
+    protected static ?string $navigationIcon = 'heroicon-o-square-3-stack-3d';
     protected static ?string $navigationGroup = 'Filter';
     protected static ?string $label = 'Product Groups';
 
