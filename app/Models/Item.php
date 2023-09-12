@@ -19,6 +19,10 @@ class Item extends Model
         'quantities',
     ];
 
+    protected $casts = [
+        'quantities' => 'array',
+    ];
+
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
