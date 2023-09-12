@@ -3,10 +3,14 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ItemResource\Pages;
+use App\Models\Category;
 use App\Models\Item;
+use App\Models\Product;
+use App\Models\Project;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\TagsInput;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -26,9 +30,25 @@ class ItemResource extends Resource
         return $form
             ->schema([
                 Section::make([
+                    Select::make('project_id')
+                        ->searchable()
+                        ->options(Project::all()->pluck('project_id', 'id')),
+                    Select::make('product_id')
+                        ->searchable()
+                        ->label('Poduct Group')
+                        ->options(Product::all()->pluck('name', 'id')),
                     TextInput::make('name'),
-                    TagsInput::make('quantities')
-                        ->placeholder('new quantity'),
+                    Repeater::make('quantities')
+                        ->schema([
+                            TextInput::make('quantity')
+                                ->label('')
+                                ->placeholder('new quantity')
+                                ->numeric()
+                        ])
+                        ->grid(8),
+                    Select::make('category_id')
+                        ->searchable()
+                        ->options(Category::all()->pluck('name', 'id')),
                     RichEditor::make('description'),
                 ]),
             ]);
@@ -43,8 +63,8 @@ class ItemResource extends Resource
                 TextColumn::make('category_id'),
                 TextColumn::make('product_id'),
                 TextColumn::make('name'),
-                TextColumn::make('description'),
-                TextColumn::make('quantities'),
+                // TextColumn::make('description'),
+                // TextColumn::make('quantities'),
             ])
             ->filters([
                 //
