@@ -2,25 +2,30 @@
 
 namespace App\Filament\Resources\InquiryResource\RelationManagers;
 
-use Filament\Forms;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\TagsInput;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ItemsRelationManager extends RelationManager
 {
     protected static string $relationship = 'items';
 
+    // TODO -> file uploads per Item?
+
     public function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('id')
-                    ->required()
-                    ->maxLength(255),
+                TextInput::make('name')
+                    ->columnSpanFull(),
+                TagsInput::make('quantities')
+                    ->placeholder('new quantity'),
+                RichEditor::make('description')
+                    ->columnSpanFull(),
             ]);
     }
 
