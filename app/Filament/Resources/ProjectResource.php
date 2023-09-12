@@ -2,12 +2,14 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\InquiryResource\RelationManagers\ItemsRelationManager;
 use App\Filament\Resources\ProjectResource\Pages;
 use App\Filament\Resources\ProjectResource\RelationManagers\InquiriesRelationManager;
 use App\Models\Project;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Resources\RelationManagers\RelationGroup;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
 use Filament\Tables;
@@ -62,7 +64,10 @@ class ProjectResource extends Resource
     public static function getRelations(): array
     {
         return [
-            InquiriesRelationManager::class,
+            RelationGroup::make('main', [
+                ItemsRelationManager::class,
+                InquiriesRelationManager::class,
+            ]),
         ];
     }
 
