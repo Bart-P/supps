@@ -31,14 +31,24 @@ class ItemResource extends Resource
             ->schema([
                 Section::make([
                     Select::make('project_id')
+                        ->label('Project')
                         ->searchable()
+                        ->required()
                         ->options(Project::all()->pluck('project_id', 'id')),
                     Select::make('product_id')
                         ->searchable()
+                        ->required()
                         ->label('Poduct Group')
                         ->options(Product::all()->pluck('name', 'id')),
-                    TextInput::make('name'),
+                    Select::make('category_id')
+                        ->label('Category')
+                        ->searchable()
+                        ->required()
+                        ->options(Category::all()->pluck('name', 'id')),
+                    TextInput::make('name')
+                        ->required(),
                     Repeater::make('quantities')
+                        ->required()
                         ->schema([
                             TextInput::make('quantity')
                                 ->label('')
@@ -46,10 +56,8 @@ class ItemResource extends Resource
                                 ->numeric()
                         ])
                         ->grid(8),
-                    Select::make('category_id')
-                        ->searchable()
-                        ->options(Category::all()->pluck('name', 'id')),
-                    RichEditor::make('description'),
+                    RichEditor::make('description')
+                        ->required(),
                 ]),
             ]);
     }
