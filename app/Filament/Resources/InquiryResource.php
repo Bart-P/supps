@@ -13,21 +13,12 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 
 class InquiryResource extends Resource
 {
     protected static ?string $model = Inquiry::class;
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
     protected static ?string $navigationGroup = 'Data';
-
-    public static function getEloquentQuery(): Builder
-    {
-        // TODO - join throughs an error, why?
-        // Select does not seem to help...
-        return parent::getEloquentQuery()
-            ->join('projects', 'inquiries.project_id', '=', 'projects.id');
-    }
 
     public static function form(Form $form): Form
     {
@@ -44,10 +35,17 @@ class InquiryResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('project_id'),
-                TextColumn::make('name'),
-                TextColumn::make('created_at'),
-                TextColumn::make('updated_at'),
+                TextColumn::make('project.ext_id')
+                    ->label('Project')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('name')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('created_at')
+                    ->sortable(),
+                TextColumn::make('updated_at')
+                    ->sortable(),
             ])
             ->filters([
                 //
