@@ -12,6 +12,7 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -48,15 +49,8 @@ class ItemResource extends Resource
                         ->searchable()
                         ->required()
                         ->options(Category::all()->pluck('name', 'id')),
-                    Repeater::make('quantities')
-                        ->required()
-                        ->schema([
-                            TextInput::make('quantity')
-                                ->label('')
-                                ->placeholder('new quantity')
-                                ->numeric()
-                        ])
-                        ->grid(8),
+                    TagsInput::make('quantities')
+                        ->placeholder('new quantity'),
                     RichEditor::make('description')
                         ->required(),
                 ]),
@@ -68,12 +62,12 @@ class ItemResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id'),
-                TextColumn::make('project_id'),
                 TextColumn::make('category_id'),
                 TextColumn::make('product_id'),
                 TextColumn::make('name'),
                 // TextColumn::make('description'),
                 // TextColumn::make('quantities'),
+                TextColumn::make('project.ext_id'),
             ])
             ->filters([
                 //
