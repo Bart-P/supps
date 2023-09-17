@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ItemResource\Pages;
+use App\Filament\Resources\ProjectResource\RelationManagers\InquiriesRelationManager;
 use App\Models\Category;
 use App\Models\Item;
 use App\Models\Product;
@@ -30,6 +31,8 @@ class ItemResource extends Resource
         return $form
             ->schema([
                 Section::make([
+                    TextInput::make('name')
+                        ->required(),
                     Select::make('project_id')
                         ->label('Project')
                         ->searchable()
@@ -45,8 +48,6 @@ class ItemResource extends Resource
                         ->searchable()
                         ->required()
                         ->options(Category::all()->pluck('name', 'id')),
-                    TextInput::make('name')
-                        ->required(),
                     Repeater::make('quantities')
                         ->required()
                         ->schema([
@@ -93,7 +94,7 @@ class ItemResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            InquiriesRelationManager::class,
         ];
     }
 
