@@ -5,12 +5,15 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\InquiryResource\Pages;
 use App\Filament\Resources\InquiryResource\RelationManagers\ItemsRelationManager;
 use App\Models\Inquiry;
+use App\Models\Project;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class InquiryResource extends Resource
 {
@@ -18,11 +21,21 @@ class InquiryResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
     protected static ?string $navigationGroup = 'Data';
 
+    public static function getEloquentQuery(): Builder
+    {
+        // TODO - join throughs an error, why?
+        // Select does not seem to help...
+        return parent::getEloquentQuery()
+            ->join('projects', 'inquiries.project_id', '=', 'projects.id');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('project_id'),
+                Select::make('project_id')
+                    ->searchable()
+                    ->options(Project::all()->pluck('ext_id', 'id')),
                 TextInput::make('name'),
             ]);
     }
