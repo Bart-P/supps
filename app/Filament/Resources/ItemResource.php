@@ -38,7 +38,7 @@ class ItemResource extends Resource
                         ->label('Project')
                         ->searchable()
                         ->required()
-                        ->options(Project::all()->pluck('project_id', 'id')),
+                        ->options(Project::all()->pluck('ext_id', 'id')),
                     Select::make('product_id')
                         ->searchable()
                         ->required()
@@ -62,15 +62,15 @@ class ItemResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id'),
-                TextColumn::make('category_id'),
-                TextColumn::make('product_id'),
                 TextColumn::make('name'),
-                // TextColumn::make('description'),
-                // TextColumn::make('quantities'),
                 TextColumn::make('project.ext_id'),
+                TextColumn::make('category.name'),
+                TextColumn::make('product.name')
+                    ->label('Product Group'),
+                TextColumn::make('updated_at'),
             ])
             ->filters([
-                //
+                // TODO setup project, category and product filters
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
