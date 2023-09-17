@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Item extends Model
 {
@@ -38,8 +39,8 @@ class Item extends Model
         return $this->belongsTo(Product::class);
     }
 
-    public function inquiry(): BelongsTo
+    public function inquiries(): BelongsToMany
     {
-        return $this->belongsTo(Inquiry::class)->withPivot('inquiry_id');
+        return $this->belongsToMany(Inquiry::class)->withPivot('inquiry_id');
     }
 }
