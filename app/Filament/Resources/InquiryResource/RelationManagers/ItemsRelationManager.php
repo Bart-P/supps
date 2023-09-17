@@ -2,7 +2,10 @@
 
 namespace App\Filament\Resources\InquiryResource\RelationManagers;
 
+use App\Models\Category;
+use App\Models\Product;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -22,6 +25,16 @@ class ItemsRelationManager extends RelationManager
             ->schema([
                 TextInput::make('name')
                     ->columnSpanFull(),
+                Select::make('category_id')
+                    ->label('Category')
+                    ->required()
+                    ->searchable()
+                    ->options(Category::all()->pluck('name', 'id')),
+                Select::make('product_id')
+                    ->searchable()
+                    ->required()
+                    ->label('Poduct Group')
+                    ->options(Product::all()->pluck('name', 'id')),
                 TagsInput::make('quantities')
                     ->placeholder('new quantity'),
                 RichEditor::make('description')
