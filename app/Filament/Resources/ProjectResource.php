@@ -27,7 +27,7 @@ class ProjectResource extends Resource
             ->schema([
                 Section::make()
                     ->schema([
-                        TextInput::make('project_id')->required(),
+                        TextInput::make('ext_id')->required(),
                         TextInput::make('name')->required(),
                     ])
             ]);
@@ -40,7 +40,7 @@ class ProjectResource extends Resource
                 TextColumn::make('id')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('project_id')
+                TextColumn::make('ext_id')
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('name')
