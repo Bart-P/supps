@@ -12,7 +12,7 @@ class Project extends Model
 
     protected $fillable = [
         'name',
-        'project_id',
+        'ext_id',
     ];
 
     public function items(): HasMany
