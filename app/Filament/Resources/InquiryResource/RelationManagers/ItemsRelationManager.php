@@ -9,13 +9,24 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Validation\ValidationException;
 
 class ItemsRelationManager extends RelationManager
 {
     protected static string $relationship = 'items';
+
+    protected function onValidationError(ValidationException $exception): void
+    {
+        Notification::make()
+            ->title($exception->getMessage())
+            ->danger()
+            ->send();
+    }
 
     // TODO -> file uploads per Item?
 
@@ -36,6 +47,10 @@ class ItemsRelationManager extends RelationManager
                     ->label('Poduct Group')
                     ->options(Product::all()->pluck('name', 'id')),
                 TagsInput::make('quantities')
+                    ->nestedRecursiveRules([
+                        'numeric',
+                        'min:1'
+                    ])
                     ->placeholder('new quantity'),
                 RichEditor::make('description')
                     ->columnSpanFull(),
