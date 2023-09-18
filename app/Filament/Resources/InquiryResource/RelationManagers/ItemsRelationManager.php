@@ -62,7 +62,10 @@ class ItemsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('id')
             ->columns([
-                Tables\Columns\TextColumn::make('id'),
+                TextColumn::make('id'),
+                TextColumn::make('name'),
+                TextColumn::make('category.name'),
+                TextColumn::make('product.name'),
             ])
             ->filters([
                 //
