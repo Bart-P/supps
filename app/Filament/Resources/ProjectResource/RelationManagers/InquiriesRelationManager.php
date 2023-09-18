@@ -39,7 +39,6 @@ class InquiriesRelationManager extends RelationManager
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make(),
-                AttachAction::make(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
