@@ -8,7 +8,6 @@ use App\Models\Category;
 use App\Models\Item;
 use App\Models\Product;
 use App\Models\Project;
-use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
