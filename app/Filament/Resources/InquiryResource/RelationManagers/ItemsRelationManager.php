@@ -4,6 +4,7 @@ namespace App\Filament\Resources\InquiryResource\RelationManagers;
 
 use App\Models\Category;
 use App\Models\Product;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
@@ -41,6 +42,8 @@ class ItemsRelationManager extends RelationManager
                     ->required()
                     ->searchable()
                     ->options(Category::all()->pluck('name', 'id')),
+                Hidden::make('project_id')
+                    ->default($this->ownerRecord->project_id),
                 Select::make('product_id')
                     ->searchable()
                     ->required()
