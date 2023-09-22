@@ -2,11 +2,11 @@
 
 namespace App\Filament\Resources\ProjectResource\RelationManagers;
 
-use Filament\Forms;
+use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
-use Filament\Tables\Actions\AttachAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -18,7 +18,9 @@ class InquiriesRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                Hidden::make('project_id')
+                    ->default($this->ownerRecord->project_id),
+                TextInput::make('name')
                     ->required()
                     ->maxLength(255),
             ]);
