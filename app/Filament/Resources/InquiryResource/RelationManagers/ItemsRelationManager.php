@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\InquiryResource\RelationManagers;
 
 use App\Models\Category;
+use App\Models\Item;
 use App\Models\Product;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\RichEditor;
@@ -13,6 +14,7 @@ use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
+use Filament\Tables\Actions\AttachAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Validation\ValidationException;
@@ -74,7 +76,19 @@ class ItemsRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
+                // TODO move the attach action to Items, as it will be easier to find
+                // left the action for reference to not figure everything out from the beginning..
                 Tables\Actions\CreateAction::make(),
+                AttachAction::make()
+                    ->recordSelect(
+                        fn (Select $select) =>
+                        $select->placeholder('Select a post')
+                            ->options(Item::all()
+                                ->pluck('name', 'id')
+                                ->map(fn ($name, $id) => $name = "(ID: " . $id . ") - " . $name))
+                            ->searchable(['items.name', 'items.id'])
+                    )
+                    ->preloadRecordSelect(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
