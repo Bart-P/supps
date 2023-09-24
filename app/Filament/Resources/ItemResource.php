@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ItemResource\Pages;
 use App\Filament\Resources\ProjectResource\RelationManagers\InquiriesRelationManager;
 use App\Models\Category;
+use App\Models\Inquiry;
 use App\Models\Item;
 use App\Models\Product;
 use App\Models\Project;
@@ -16,8 +17,10 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Collection;
 
 class ItemResource extends Resource
 {
@@ -77,6 +80,21 @@ class ItemResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    BulkAction::make('Attach to Inquiry')
+                        ->form([
+                            Select::make('inquiry')
+                                ->options(
+                                    Inquiry::all()
+                                        ->pluck('project.ext_id', 'id')
+                                        ->map(fn ($ext_id, $id) => $ext_id = "(ID: " . $id . ") - " . $ext_id)
+                                )
+                                ->searchable()
+                                ->preload()
+                        ])
+                        ->action(
+                            fn (Collection $records) =>
+                            dd($records)
+                        )
                 ]),
             ])
             ->emptyStateActions([
