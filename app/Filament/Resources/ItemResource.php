@@ -93,6 +93,7 @@ class ItemResource extends Resource
                         ])
                         ->action(
                             fn (Collection $records) =>
+                            // TODO finnish up updating records on save
                             dd($records)
                         )
                 ]),
