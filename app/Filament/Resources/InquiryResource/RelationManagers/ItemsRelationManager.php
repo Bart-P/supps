@@ -76,19 +76,20 @@ class ItemsRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                // TODO move the attach action to Items, as it will be easier to find
-                // left the action for reference to not figure everything out from the beginning..
                 Tables\Actions\CreateAction::make(),
                 AttachAction::make()
                     ->recordSelect(
                         fn (Select $select) =>
-                        $select->placeholder('Select a post')
-                            ->options(Item::all()
-                                ->pluck('name', 'id')
-                                ->map(fn ($name, $id) => $name = "(ID: " . $id . ") - " . $name))
-                            ->searchable(['items.name', 'items.id'])
+                        $select
+                            ->placeholder('Select an item')
+                            ->options(
+                                Item::all()
+                                    ->pluck('name', 'id')
+                                    ->map(fn ($name, $id) => $name = "(ID: " . $id . ") - " . $name)
+                            )
+                            ->searchable()
+                            ->preload()
                     )
-                    ->preloadRecordSelect(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
