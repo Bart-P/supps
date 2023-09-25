@@ -17,6 +17,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\AttachAction;
 use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -92,10 +93,11 @@ class ItemResource extends Resource
                                 ->preload()
                         ])
                         ->action(
-                            fn (Collection $records) =>
-                            // TODO finnish up updating records on save
-                            dd($records)
-                        )
+                            function (array $data, Collection $records) {
+                                $recordIds = $records->map(fn ($record) => $record->id)->toArray();
+                                Inquiry::find($data['inquiry'])->items()->syncWithoutDetaching($recordIds);
+                            }
+                        ),
                 ]),
             ])
             ->emptyStateActions([
