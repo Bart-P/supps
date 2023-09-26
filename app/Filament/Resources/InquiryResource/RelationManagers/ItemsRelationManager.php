@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\InquiryResource\RelationManagers;
 
 use App\Models\Category;
+use App\Models\Inquiry;
 use App\Models\Item;
 use App\Models\Product;
 use Filament\Forms\Components\Hidden;
@@ -14,7 +15,7 @@ use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
-use Filament\Tables\Actions\AttachAction;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\DetachAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -78,11 +79,9 @@ class ItemsRelationManager extends RelationManager
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make(),
-                AttachAction::make()
-                    // TODO - test if form would be the right way instead of record Select.. See ItemsResource
-                    ->recordSelect(
-                        fn (Select $select) =>
-                        $select
+                Action::make('item')
+                    ->form([
+                        Select::make('Attach Item')
                             ->placeholder('Select an item')
                             ->options(
                                 Item::all()
@@ -91,7 +90,10 @@ class ItemsRelationManager extends RelationManager
                             )
                             ->searchable()
                             ->preload()
-                    )
+                    ])
+                    ->action(function (array $data) {
+                        Inquiry::find($this->ownerRecord->id)->items()->syncWithoutDetaching($data);
+                    })
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
