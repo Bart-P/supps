@@ -17,10 +17,12 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Actions\AttachAction;
 use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 class ItemResource extends Resource
@@ -64,16 +66,33 @@ class ItemResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id'),
-                TextColumn::make('name'),
-                TextColumn::make('project.ext_id'),
-                TextColumn::make('category.name'),
+                TextColumn::make('id')
+                    ->searchable(),
+                TextColumn::make('name')
+                    ->searchable(),
+                TextColumn::make('project.ext_id')
+                    ->searchable(),
+                TextColumn::make('category.name')
+                    ->sortable(),
                 TextColumn::make('product.name')
                     ->label('Product Group'),
                 TextColumn::make('updated_at'),
             ])
             ->filters([
-                // TODO setup project, category and product filters
+                SelectFilter::make('project')
+                    ->relationship('project', 'ext_id')
+                    ->searchable()
+                    ->preload(),
+                SelectFilter::make('category')
+                    ->relationship('category', 'name')
+                    ->searchable()
+                    ->preload(),
+                SelectFilter::make('product')
+                    ->relationship('product', 'name')
+                    ->searchable()
+                    ->preload(),
+
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
