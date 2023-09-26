@@ -19,10 +19,8 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 class ItemResource extends Resource
@@ -91,8 +89,6 @@ class ItemResource extends Resource
                     ->relationship('product', 'name')
                     ->searchable()
                     ->preload(),
-
-
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
