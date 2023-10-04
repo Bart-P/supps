@@ -41,7 +41,9 @@ class ItemResource extends Resource
                         ->label('Project')
                         ->searchable()
                         ->required()
-                        ->options(Project::all()->pluck('ext_id', 'id')),
+                        ->options(Project::all()
+                            ->map(fn ($project) => ['id' => $project->id, 'ext_id' => $project->ext_id . " | " . $project->name])
+                            ->pluck('ext_id', 'id')),
                     Select::make('product_id')
                         ->searchable()
                         ->required()

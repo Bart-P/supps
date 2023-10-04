@@ -26,7 +26,10 @@ class InquiryResource extends Resource
             ->schema([
                 Select::make('project_id')
                     ->searchable()
-                    ->options(Project::all()->pluck('ext_id', 'id')),
+                    ->label('Project')
+                    ->options(Project::all()
+                        ->map(fn ($project) => ['id' => $project->id, 'ext_id' => $project->ext_id . " | " . $project->name])
+                        ->pluck('ext_id', 'id')),
                 TextInput::make('name'),
             ]);
     }

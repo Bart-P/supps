@@ -25,9 +25,11 @@ class InquiriesRelationManager extends RelationManager
                 Select::make('project_id')
                     ->label('Project')
                     ->searchable()
+                    ->multiple()
                     ->required()
-                    ->options(Project::all()->pluck('ext_id', 'id')
-                        ->map(fn ($ext_id, $id) => $ext_id = "(ID: " . $id . ") - " . $ext_id)),
+                    ->options(Project::all()
+                        ->map(fn ($project) => ['id' => $project->id, 'ext_id' => $project->ext_id . " | " . $project->name])
+                        ->pluck('ext_id', 'id')),
                 TextInput::make('name')
                     ->required()
                     ->maxLength(255),
