@@ -3,7 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ItemResource\Pages;
-use App\Filament\Resources\ProjectResource\RelationManagers\InquiriesRelationManager;
+use App\Filament\Resources\ItemResource\RelationManagers\InquiriesRelationManager;
 use App\Models\Category;
 use App\Models\Inquiry;
 use App\Models\Item;
