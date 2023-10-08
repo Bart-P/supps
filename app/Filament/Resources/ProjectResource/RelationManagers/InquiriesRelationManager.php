@@ -2,7 +2,10 @@
 
 namespace App\Filament\Resources\ProjectResource\RelationManagers;
 
+use App\Models\Item;
+use App\Models\Project;
 use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -23,6 +26,14 @@ class InquiriesRelationManager extends RelationManager
                 TextInput::make('name')
                     ->required()
                     ->maxLength(255),
+                Select::make('items')
+                    ->relationship('items', 'id')
+                    ->searchable()
+                    ->multiple()
+                    ->options(Project::find($this->ownerRecord->id)
+                        ->items()
+                        ->pluck('name', 'id')
+                        ->map(fn ($name, $id) => $name = "(ID: " . $id . ") - " . $name)),
             ]);
     }
 
