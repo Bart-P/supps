@@ -80,6 +80,8 @@ class ItemsRelationManager extends RelationManager
             ->headerActions([
                 Tables\Actions\CreateAction::make(),
                 Action::make('item')
+                    ->label('Attach Item')
+                    ->color('success')
                     ->form([
                         Select::make('Attach Item')
                             ->placeholder('Select an item')
