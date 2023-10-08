@@ -16,7 +16,9 @@ use Filament\Notifications\Notification;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
-use Filament\Tables\Actions\DetachAction;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ReplicateAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Validation\ValidationException;
@@ -94,12 +96,19 @@ class ItemsRelationManager extends RelationManager
                             ->preload()
                     ])
                     ->action(function (array $data) {
+
+                        $item = Item::find($data);
+                        $newItem = new Item((clone $item)->toArray());
+                        $newItem->project_id = $this->ownerRecord->project_id;
+
+                        dd($newItem);
                         Inquiry::find($this->ownerRecord->id)->items()->syncWithoutDetaching($data);
                     })
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                DetachAction::make(),
+                EditAction::make(),
+                ReplicateAction::make()->color('success'),
+                DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
