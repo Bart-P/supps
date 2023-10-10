@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\ProjectResource\RelationManagers;
 
 use App\Models\Category;
-use App\Models\Inquiry;
 use App\Models\Item;
 use App\Models\Product;
 use Filament\Forms\Components\Hidden;
