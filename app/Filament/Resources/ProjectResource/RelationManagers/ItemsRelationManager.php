@@ -61,7 +61,7 @@ class ItemsRelationManager extends RelationManager
                 TextColumn::make('id'),
                 TextColumn::make('name'),
                 TextColumn::make('category.name'),
-                TextColumn::make('product.name'),
+                TextColumn::make('product.name')->label('Project Group'),
             ])
             ->filters([
                 //
