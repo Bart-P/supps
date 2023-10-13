@@ -2,10 +2,12 @@
 
 namespace App\Filament\Resources\ProjectResource\RelationManagers;
 
+use App\Enums\InquiryLang;
 use App\Models\Category;
 use App\Models\Item;
 use App\Models\Product;
 use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
@@ -48,7 +50,22 @@ class ItemsRelationManager extends RelationManager
                         'min:1'
                     ])
                     ->placeholder('new quantity'),
-                RichEditor::make('description')
+                Repeater::make('descriptions')
+                    ->schema([
+                        Select::make('lang')
+                            ->options(
+                                function () {
+                                    $key = array_column(InquiryLang::cases(), 'name');
+                                    $value = array_column(InquiryLang::cases(), 'value');
+
+                                    return array_combine($key, $value);
+                                }
+                            )
+                            ->label('Language')
+                            ->default('EN'),
+                        TextInput::make('name'),
+                        RichEditor::make('description')
+                    ])
                     ->columnSpanFull(),
             ]);
     }

@@ -9,6 +9,7 @@ use App\Models\Inquiry;
 use App\Models\Item;
 use App\Models\Product;
 use App\Models\Project;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -56,8 +57,16 @@ class ItemResource extends Resource
                         ->options(Category::all()->pluck('name', 'id')),
                     TagsInput::make('quantities')
                         ->placeholder('new quantity'),
-                    RichEditor::make('description')
-                        ->required(),
+                    Repeater::make('descriptions')
+                        ->schema([
+                            Select::make('lang')
+                                ->options(['DE', 'EN', 'PL'])
+                                ->label('Language')
+                                ->default('DE'),
+                            TextInput::make('name'),
+                            RichEditor::make('description')
+                        ])
+                        ->columnSpanFull(),
                 ]),
             ]);
     }
