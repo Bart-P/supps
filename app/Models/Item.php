@@ -16,12 +16,13 @@ class Item extends Model
         'category_id',
         'product_id',
         'name',
-        'description',
+        'descriptions',
         'quantities',
     ];
 
     protected $casts = [
         'quantities' => 'array',
+        'descriptions' => 'array',
     ];
 
     public function project(): BelongsTo
