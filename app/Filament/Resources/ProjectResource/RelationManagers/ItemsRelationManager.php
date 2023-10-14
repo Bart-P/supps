@@ -13,6 +13,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
@@ -55,19 +56,30 @@ class ItemsRelationManager extends RelationManager
                     ->schema([
                         Select::make('lang')
                             ->options(
-                                function () {
-                                    // Transforming Enum to key value array for select to work properly
+                                function (Get $get) {
+                                    // Transforming Enum to key value array for select to save / show the right data
+                                    // Then filtering out what is already selected to avoid selecting a language twice
+
                                     $key = array_column(InquiryLang::cases(), 'name');
                                     $value = array_column(InquiryLang::cases(), 'value');
+                                    $currently_selected = array_map(fn ($desc) => $desc['lang'], $get('../../descriptions'));
 
-                                    return array_combine($key, $value);
+                                    return array_filter(
+                                        array_combine($key, $value),
+                                        function ($lang) use ($currently_selected) {
+
+                                            return !in_array(strtolower($lang), $currently_selected);
+                                        }
+                                    );
                                 }
                             )
-                            ->label('Language')
-                            ->default('EN'),
+                            ->label('Language'),
                         TextInput::make('name'),
-                        RichEditor::make('description')
+                        RichEditor::make('description'),
                     ])
+                    ->collapsible()
+                    ->maxItems(count(InquiryLang::cases()))
+                    ->itemLabel(fn (array $state): ?string => strtoupper($state['lang']) ?? null)
                     ->columnSpanFull(),
             ]);
     }
