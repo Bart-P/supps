@@ -45,6 +45,7 @@ class ItemsRelationManager extends RelationManager
                     ->label('Poduct Group')
                     ->options(Product::all()->pluck('name', 'id')),
                 TagsInput::make('quantities')
+                    // Throws an error if something non numeric is tried to be saved
                     ->nestedRecursiveRules([
                         'numeric',
                         'min:1'
@@ -55,6 +56,7 @@ class ItemsRelationManager extends RelationManager
                         Select::make('lang')
                             ->options(
                                 function () {
+                                    // Transforming Enum to key value array for select to work properly
                                     $key = array_column(InquiryLang::cases(), 'name');
                                     $value = array_column(InquiryLang::cases(), 'value');
 
