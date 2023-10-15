@@ -57,17 +57,15 @@ class ProjectResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                // Tables\Actions\DeleteBulkAction::make(),
+                //
             ]);
     }
 
     public static function getRelations(): array
     {
         return [
-            RelationGroup::make('main', [
-                ItemsRelationManager::class,
-                InquiriesRelationManager::class,
-            ]),
+            ItemsRelationManager::class,
+            InquiriesRelationManager::class,
         ];
     }
 
