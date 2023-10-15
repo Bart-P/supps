@@ -66,6 +66,7 @@ class ItemsRelationManager extends RelationManager
 
                                     $filtered_array = array_filter(
                                         array_combine($key, $value),
+
                                         function ($lang) use ($currently_selected, $state) {
                                             if ($lang === strtoupper($state)) return true;
 
