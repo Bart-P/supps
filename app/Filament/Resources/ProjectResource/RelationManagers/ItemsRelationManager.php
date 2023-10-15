@@ -56,7 +56,7 @@ class ItemsRelationManager extends RelationManager
                     ->schema([
                         Select::make('lang')
                             ->options(
-                                function (Get $get) {
+                                function (Get $get, $state) {
                                     // Transforming Enum to key value array for select to save / show the right data
                                     // Then filtering out what is already selected to avoid selecting a language twice
 
@@ -64,13 +64,16 @@ class ItemsRelationManager extends RelationManager
                                     $value = array_column(InquiryLang::cases(), 'value');
                                     $currently_selected = array_map(fn ($desc) => $desc['lang'], $get('../../descriptions'));
 
-                                    return array_filter(
+                                    $filtered_array = array_filter(
                                         array_combine($key, $value),
-                                        function ($lang) use ($currently_selected) {
+                                        function ($lang) use ($currently_selected, $state) {
+                                            if ($lang === strtoupper($state)) return true;
 
                                             return !in_array(strtolower($lang), $currently_selected);
                                         }
                                     );
+
+                                    return $filtered_array;
                                 }
                             )
                             ->label('Language'),
