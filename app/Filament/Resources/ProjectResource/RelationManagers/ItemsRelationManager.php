@@ -62,15 +62,18 @@ class ItemsRelationManager extends RelationManager
 
                                     $key = array_column(InquiryLang::cases(), 'name');
                                     $value = array_column(InquiryLang::cases(), 'value');
-                                    $currently_selected = array_map(fn ($desc) => $desc['lang'], $get('../../descriptions'));
+                                    $currently_selected = array_map(
+                                        fn ($desc) => $desc['lang'],
+                                        $get('../../descriptions')
+                                    );
 
                                     $filtered_array = array_filter(
                                         array_combine($key, $value),
-
                                         function ($lang) use ($currently_selected, $state) {
                                             $lower_lang = strtolower($lang);
 
-                                            if ($lower_lang === $state) return true;
+                                            if ($lower_lang === $state)
+                                                return true;
 
                                             return !in_array($lower_lang, $currently_selected);
                                         }
