@@ -56,14 +56,14 @@ class ItemsRelationManager extends RelationManager
                     ->schema([
                         Select::make('lang')
                             ->options(
-                                function (Get $get, string $state) {
+                                function (Get $get, ?string $state) {
                                     // Transforming Enum to key value array for select to save / show the right data
                                     // Then filtering out what is already selected to avoid selecting a language twice
 
                                     $key = array_column(InquiryLang::cases(), 'name');
                                     $value = array_column(InquiryLang::cases(), 'value');
                                     $currently_selected = array_map(
-                                        fn ($desc) => $desc['lang'],
+                                        fn ($desc) => array_key_exists('lang', $desc) ? $desc['lang'] : null,
                                         $get('../../descriptions')
                                     );
 
@@ -88,7 +88,7 @@ class ItemsRelationManager extends RelationManager
                     ])
                     ->collapsible()
                     ->maxItems(count(InquiryLang::cases()))
-                    ->itemLabel(fn (array $state): ?string => strtoupper($state['lang']) ?? null)
+                    ->itemLabel(fn (array $state): ?string => array_key_exists('lang', $state) ? strtoupper($state['lang']) : null)
                     ->columnSpanFull(),
             ]);
     }
