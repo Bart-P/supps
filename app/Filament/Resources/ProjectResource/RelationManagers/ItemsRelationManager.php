@@ -51,6 +51,8 @@ class ItemsRelationManager extends RelationManager
                         'numeric',
                         'min:1'
                     ])
+                    ->columnSpanFull()
+                    ->required()
                     ->placeholder('new quantity'),
                 Repeater::make('descriptions')
                     ->schema([
