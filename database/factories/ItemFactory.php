@@ -19,7 +19,6 @@ class ItemFactory extends Factory
      */
     public function definition(): array
     {
-        // dd(fake()->randomElement(Project::all()->pluck('id')->toArray()));
         return [
             'project_id' => fake()->randomElement(Project::all()->pluck('id')->toArray()),
             'category_id' => fake()->randomElement(Category::all()->pluck('id')->toArray()),
