@@ -28,6 +28,11 @@ class Supplier extends Model
         return $this->hasMany(Person::class);
     }
 
+    public function supplierInquiries(): HasMany
+    {
+        return $this->hasMany(SupplierInquiry::class);
+    }
+
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class)->withPivot('category_id');
