@@ -27,6 +27,8 @@ class DatabaseSeeder extends Seeder
             PersonSeeder::class,
 
             ProjectSeeder::class,
+
+            ItemSeeder::class,
         ]);
     }
 }
