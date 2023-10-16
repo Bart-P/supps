@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\Project;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +19,38 @@ class ItemFactory extends Factory
      */
     public function definition(): array
     {
+        // dd(fake()->randomElement(Project::all()->pluck('id')->toArray()));
         return [
-            //
+            'project_id' => fake()->randomElement(Project::all()->pluck('id')->toArray()),
+            'category_id' => fake()->randomElement(Category::all()->pluck('id')->toArray()),
+            'product_id' => fake()->randomElement(Product::all()->pluck('id')->toArray()),
+            'name' => fake()->word(),
+            'descriptions' => fake()->randomElements(
+                [
+                    [
+                        'lang' => fake()->randomElement(['en', 'de', 'pl']),
+                        'name' => fake()->word(),
+                        'description' => fake()->text(50)
+                    ],
+                    [
+                        'lang' => fake()->randomElement(['en', 'de', 'pl']),
+                        'name' => fake()->word(),
+                        'description' => fake()->text(50)
+                    ],
+                    [
+                        'lang' => fake()->randomElement(['en', 'de', 'pl']),
+                        'name' => fake()->word(),
+                        'description' => fake()->text(50)
+                    ]
+                ],
+                random_int(1, 3)
+            ),
+            'quantities' => fake()->randomElement([
+                ["100", "200", "300"],
+                ["50", "100", "150"],
+                ["1000", "1500", "2000"],
+                ["5000", "10000", "20000"]
+            ])
         ];
     }
 }
