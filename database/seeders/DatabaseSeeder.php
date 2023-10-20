@@ -25,10 +25,10 @@ class DatabaseSeeder extends Seeder
             # call Address and Person Seeder after Supplier, both need a supplier_id
             AddressSeeder::class,
             PersonSeeder::class,
-
             ProjectSeeder::class,
-
-            ItemSeeder::class,
+            # Items will be created within InquirySeeder
+            # Inquiries (and Items) have to be created after Projects
+            InquirySeeder::class,
         ]);
     }
 }

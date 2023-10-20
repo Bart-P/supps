@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Inquiry;
 use Illuminate\Database\Seeder;
 
 class InquirySeeder extends Seeder
@@ -12,6 +12,6 @@ class InquirySeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Inquiry::factory(15)->create();
     }
 }
