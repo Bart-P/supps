@@ -30,17 +30,17 @@ class ItemFactory extends Factory
             'descriptions' => fake()->randomElements(
                 [
                     [
-                        'lang' => fake()->randomElement(['en', 'de', 'pl']),
+                        'lang' => 'de',
                         'name' => fake()->word(),
                         'description' => fake()->text(50)
                     ],
                     [
-                        'lang' => fake()->randomElement(['en', 'de', 'pl']),
+                        'lang' => 'en',
                         'name' => fake()->word(),
                         'description' => fake()->text(50)
                     ],
                     [
-                        'lang' => fake()->randomElement(['en', 'de', 'pl']),
+                        'lang' => 'pl',
                         'name' => fake()->word(),
                         'description' => fake()->text(50)
                     ]
