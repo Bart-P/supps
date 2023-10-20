@@ -19,6 +19,9 @@ class ItemFactory extends Factory
      */
     public function definition(): array
     {
+
+        // Factory needs to be called after Project Category and Product are already in DB.
+
         return [
             'project_id' => fake()->randomElement(Project::all()->pluck('id')->toArray()),
             'category_id' => fake()->randomElement(Category::all()->pluck('id')->toArray()),
