@@ -23,9 +23,9 @@ class ItemFactory extends Factory
         // Factory needs to be called after Project Category and Product are already in DB.
 
         return [
-            'project_id' => fake()->randomElement(Project::all()->pluck('id')->toArray()),
-            'category_id' => fake()->randomElement(Category::all()->pluck('id')->toArray()),
-            'product_id' => fake()->randomElement(Product::all()->pluck('id')->toArray()),
+            'project_id' => fake()->randomElement(Project::all()->pluck('id')),
+            'category_id' => fake()->randomElement(Category::all()->pluck('id')),
+            'product_id' => fake()->randomElement(Product::all()->pluck('id')),
             'name' => fake()->word(),
             'descriptions' => fake()->randomElements(
                 [
