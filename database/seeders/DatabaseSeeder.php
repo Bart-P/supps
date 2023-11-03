@@ -29,6 +29,8 @@ class DatabaseSeeder extends Seeder
             # Items will be created within InquirySeeder
             # Inquiries (and Items) have to be created after Projects
             InquirySeeder::class,
+
+            SupplierInquirySeeder::class,
         ]);
     }
 }

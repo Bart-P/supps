@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('inquiry_id');
             $table->foreignId('supplier_id');
-            $table->longText('msgTitle');
-            $table->longText('msg');
             $table->string('lang');
+            $table->longText('msg_title');
+            $table->longText('msg_body');
             $table->timestamps();
         });
     }
