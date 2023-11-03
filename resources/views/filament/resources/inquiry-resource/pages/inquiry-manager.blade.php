@@ -1,6 +1,4 @@
 <x-filament-panels::page>
-    <!-- TODO set up nvim for blade (custom tree-sitter parser vs COC?) -->
-<div>
-    test
-</div>
+    {{ $this->getInfolist }}
+    {{ $this->table }}
 </x-filament-panels::page>
