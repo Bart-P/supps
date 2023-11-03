@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\InquiryResource\Pages;
+use App\Filament\Resources\InquiryResource\Pages\InquiryManager;
 use App\Filament\Resources\InquiryResource\RelationManagers\ItemsRelationManager;
 use App\Models\Inquiry;
 use App\Models\Project;
@@ -13,6 +14,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Http\Request;
 
 class InquiryResource extends Resource
 {
@@ -82,6 +84,9 @@ class InquiryResource extends Resource
             'index' => Pages\ListInquiries::route('/'),
             'create' => Pages\CreateInquiry::route('/create'),
             'edit' => Pages\EditInquiry::route('/{record}/edit'),
+            'manage' => InquiryManager::route('/{record}/manage', [
+                'inquiries' => Inquiry::all(),
+            ])
         ];
     }
 }
