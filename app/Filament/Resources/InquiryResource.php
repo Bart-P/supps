@@ -12,9 +12,9 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Http\Request;
 
 class InquiryResource extends Resource
 {
@@ -59,6 +59,13 @@ class InquiryResource extends Resource
                 //
             ])
             ->actions([
+                Action::make('manage')
+                ->icon('heroicon-o-clipboard-document-list')
+                ->color('success')
+                ->url(fn (Inquiry $record): string => route(
+                    'filament.admin.resources.inquiries.manage',
+                    $record
+                )),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
