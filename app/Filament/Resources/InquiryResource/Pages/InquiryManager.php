@@ -29,13 +29,6 @@ class InquiryManager extends Page implements HasForms, HasInfolists, HasTable
     protected static string $view = 'filament.resources.inquiry-resource.pages.inquiry-manager';
 
     public ?Inquiry $record;
-    public ?Collection $items;
-    public ?Collection $supplierInquiries;
-
-    public function mount(): void
-    {
-        $this->items = $this->record->items()->get();
-    }
 
     protected function getHeaderActions(): array
     {
@@ -68,5 +61,27 @@ class InquiryManager extends Page implements HasForms, HasInfolists, HasTable
     public function getInfolist(string $name): ?Infolist
     {
         return $this->inquiryInfolist(new Infolist());
+    }
+
+    public function table(Table $table): Table
+    {
+        return $table
+            ->query(SupplierInquiry::query()
+                ->join('suppliers', 'supplier_inquiries.supplier_id', '=', 'suppliers.id')
+                ->select('supplier_inquiries.*', 'suppliers.name as supplier_name')
+                ->where('inquiry_id', '=', $this->record->id))
+            ->columns([
+                TextColumn::make('supplier_name')->label('Supplier'),
+                TextColumn::make('lang'),
+                TextColumn::make('updated_at')
+                    ->copyable()
+                    ->dateTime('d.m.Y G:i', 'Europe/Berlin'),
+                TextColumn::make('created_at')
+                    ->copyable()
+                    ->dateTime('d.m.Y G:i', 'Europe/Berlin'),
+            ])
+            ->actions([
+                // TODO create CRUD actions for supplier inquiries.
+            ]);
     }
 }
