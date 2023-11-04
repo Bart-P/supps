@@ -5,6 +5,8 @@ namespace App\Filament\Resources\InquiryResource\Pages;
 use App\Filament\Resources\InquiryResource;
 use App\Models\Inquiry;
 use App\Models\SupplierInquiry;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Infolists\Components\Fieldset;
@@ -13,6 +15,7 @@ use Filament\Infolists\Concerns\InteractsWithInfolists;
 use Filament\Infolists\Contracts\HasInfolists;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Pages\Page;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
@@ -29,6 +32,7 @@ class InquiryManager extends Page implements HasForms, HasInfolists, HasTable
     protected static string $view = 'filament.resources.inquiry-resource.pages.inquiry-manager';
 
     public ?Inquiry $record;
+    public ?array $data = [];
 
     protected function getHeaderActions(): array
     {
@@ -81,7 +85,18 @@ class InquiryManager extends Page implements HasForms, HasInfolists, HasTable
                     ->dateTime('d.m.Y G:i', 'Europe/Berlin'),
             ])
             ->actions([
-                // TODO create CRUD actions for supplier inquiries.
+                // TODO finish crud for supp inquiry
+                Action::make('edit')
+                    ->icon('heroicon-o-pencil-square')
+                    ->form([
+                        TextInput::make('msg_title')
+                            ->label('Title'),
+                        RichEditor::make('msg_body')
+                            ->label('Body'),
+                    ])
+                    ->action(function () {
+                        dd('test');
+                    })
             ]);
     }
 }
