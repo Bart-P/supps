@@ -20,7 +20,6 @@ class InquiryResource extends Resource
 {
     protected static ?string $model = Inquiry::class;
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
-    protected static ?string $navigationGroup = 'Data';
 
     public static function form(Form $form): Form
     {
