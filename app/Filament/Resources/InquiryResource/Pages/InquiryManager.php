@@ -4,8 +4,8 @@ namespace App\Filament\Resources\InquiryResource\Pages;
 
 use App\Filament\Resources\InquiryResource;
 use App\Models\Inquiry;
-use App\Models\Item;
 use App\Models\SupplierInquiry;
+use Filament\Actions\Action as ActionsAction;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -38,7 +38,10 @@ class InquiryManager extends Page implements HasForms, HasInfolists, HasTable
     protected function getHeaderActions(): array
     {
         return [
-            // ...
+            ActionsAction::make('Edit Inquiry')
+            ->icon('heroicon-o-clipboard-document-list')
+            ->color('primary')
+            ->url(route('filament.admin.resources.inquiries.edit', $this->record->id))
         ];
     }
 
