@@ -21,11 +21,12 @@ class ListItems extends Component implements HasForms, HasTable
     public function table(Table $table): Table
     {
         return $table
-            // TODO -> update relation to query with joins for product and category names
             ->relationship(fn () => Inquiry::find($this->inquiry_id)->items())
             ->columns([
                 TextColumn::make('id'),
                 TextColumn::make('name'),
+                TextColumn::make('category.name'),
+                TextColumn::make('product.name'),
                 TextColumn::make('updated_at')
                     ->copyable()
                     ->dateTime('d.m.Y G:i', 'Europe/Berlin'),
