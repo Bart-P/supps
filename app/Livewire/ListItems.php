@@ -34,6 +34,9 @@ class ListItems extends Component implements HasForms, HasTable
                     ->copyable()
                     ->dateTime('d.m.Y G:i', 'Europe/Berlin'),
             ])
+            ->headerActions([
+                // ... is it needed?
+            ])
             ->actions([
                 // TODO -> implement CRUD for items in custom component
             ]);
