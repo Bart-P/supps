@@ -41,6 +41,9 @@ class InquiryResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->recordUrl(
+                fn (Inquiry $record) => route('filament.admin.resources.inquiries.manage', $record->id)
+            )
             ->columns([
                 TextColumn::make('project.ext_id')
                     ->label('Project')
