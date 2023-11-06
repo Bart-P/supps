@@ -1,6 +1,10 @@
 <x-filament-panels::page>
-    {{-- TODO make some headings and sections --}}
     {{ $this->getInfolist }}
-    {{ $this->table }}
+
     <livewire:list-items :inquiry_id="$record->id" />
+
+    <h3 class="ps-2 font-bold">
+        Supplier Inquiries
+    </h3>
+    {{ $this->table }}
 </x-filament-panels::page>
