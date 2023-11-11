@@ -3,8 +3,10 @@
 namespace App\Livewire;
 
 use App\Models\Inquiry;
+use App\Models\Item;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
@@ -24,7 +26,7 @@ class ListItems extends Component implements HasForms, HasTable
             ->relationship(fn () => Inquiry::find($this->inquiry_id)->items())
             ->columns([
                 TextColumn::make('id'),
-                TextColumn::make('name'),
+                TextColumn::make('name')->searchable(),
                 TextColumn::make('category.name'),
                 TextColumn::make('product.name'),
                 TextColumn::make('updated_at')
@@ -35,13 +37,16 @@ class ListItems extends Component implements HasForms, HasTable
                     ->dateTime('d.m.Y G:i', 'Europe/Berlin'),
             ])
             ->headerActions([
-                // ... is it needed?
+                // ...
             ])
             ->actions([
-                // TODO -> implement CRUD for items in custom component
+                Action::make('edit item')
+                    ->label('Edit')
+                    ->icon('heroicon-o-pencil-square')
+                    ->color('primary')
+                    ->url(fn (Item $record): string => route('filament.admin.resources.items.edit', $record)),
             ]);
     }
-
 
     public function render()
     {
