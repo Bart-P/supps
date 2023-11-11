@@ -38,10 +38,16 @@ class InquiryManager extends Page implements HasForms, HasInfolists, HasTable
     protected function getHeaderActions(): array
     {
         return [
-            ActionsAction::make('Edit Inquiry')
-            ->icon('heroicon-o-clipboard-document-list')
-            ->color('primary')
-            ->url(route('filament.admin.resources.inquiries.edit', $this->record->id))
+            ActionsAction::make('edit inquiry')
+                ->label('Edit Inquiry')
+                ->icon('heroicon-o-clipboard-document-list')
+                ->color('primary')
+                ->url(route('filament.admin.resources.inquiries.edit', $this->record->id)),
+            ActionsAction::make('edit project')
+                ->label('Edit Project')
+                ->icon('heroicon-o-rectangle-stack')
+                ->color('info')
+                ->url(route('filament.admin.resources.projects.edit', $this->record->project_id))
         ];
     }
 
@@ -99,7 +105,7 @@ class InquiryManager extends Page implements HasForms, HasInfolists, HasTable
                             ->label('Body'),
                     ])
                     ->action(function () {
-                        dd('test');
+                        dd('TODO -> implement mail functionality');
                     })
             ]);
     }
